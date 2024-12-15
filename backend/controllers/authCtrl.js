@@ -20,7 +20,7 @@ const loginctrl = async(req,res)=>{
 
     try{ const {error}  = validateuserinput(req.body ,false) ; 
      if(error){
-      res.status(400).json({message : error.details[0].message});
+     return  res.status(400).json({message : error.details[0].message});
      }
      //look for the user email in the db
      const user = await userMdl.findOne({ email :req.body.email}) ; 

@@ -1,14 +1,16 @@
 require("dotenv").config(); 
 const express = require("express");
 const dbconnection = require("./config/db");
-const authrouter = require('./routes/authRoutes');
+const authRoutes = require('./routes/authRoutes');
+const usersRoutes = require('./routes/usersRoutes');
 const cookieparser = require('cookie-parser');
 const app = express();
 app.use(express.json());
 app.use(cookieparser()); 
 dbconnection.on('connected', 
     () => {
-        app.use(authrouter);
+        app.use(authRoutes);
+        app.use(usersRoutes);
         app.all('*', (req, res) => 
             res.status(404).json({ message: 'Route not found' })
         );
