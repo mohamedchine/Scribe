@@ -15,10 +15,17 @@ const verifytoken = async (req, res, next) => {
 
 const verifytokenandadmin=async(req,res,next)=>{
         verifytoken(req,res , ()=>{
-                if(!req.user.isAdmin) return res.status(403).json({message : "access denied"});
+                if(!req.user.isAdmin) return res.status(403).json({message : "access denied "});
                 next();
         });
 }
-
-
-module.exports = {verifytoken,verifytokenandadmin} ; 
+//middleware that take verify if the userid in the token(access) is equal to the userid in the reqparams
+const verifytokenandownership = async (req,res,next)=>{ 
+        verifytoken(req,res ,()=>{
+                if( ! (req.user.id == req.params.id )){
+                        return res.status(403).json({message:"u can't update somoene elses profile"}) ; 
+                }
+                next() ;
+        });
+}
+module.exports = {verifytoken,verifytokenandadmin,verifytokenandownership } ; 
