@@ -47,4 +47,8 @@ const updateUserProfileCtrl = async(req,res)=>{
      },{new:"true"}).select("-password -refreshtoken");
      res.status(200).json({message: "user have been updated successfuly", updatedUser});
 }
-module.exports ={getAllUsersCtrl , getUserProfileCtrl,updateUserProfileCtrl};
+const numberOfUsersCtrl = async(req , res)=>{
+     const numberOfUsers = await userMdl.countDocuments();
+     res.status(200).json(numberOfUsers) ; 
+}
+module.exports ={getAllUsersCtrl , getUserProfileCtrl,updateUserProfileCtrl,numberOfUsersCtrl};
