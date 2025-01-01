@@ -1,7 +1,8 @@
 const userMdl = require('../models/userModel');
 const {validateUpdateUser} = require('../utils/validationutils');
+const asyncHandler = require('express-async-handler');
 const {comparePasswords,hashPassword} = require('../utils/hashingUtils');
-
+ 
 
 
 const getAllUsersCtrl = async(req,res)=>{
@@ -51,4 +52,12 @@ const numberOfUsersCtrl = async(req , res)=>{
      const numberOfUsers = await userMdl.countDocuments();
      res.status(200).json(numberOfUsers) ; 
 }
-module.exports ={getAllUsersCtrl , getUserProfileCtrl,updateUserProfileCtrl,numberOfUsersCtrl};
+
+const uploadProfilePicCtrl = async(req,res)=>{
+     if(!req.file){
+         return res.status(400).json({error : "no picture received"});
+     }
+     res.status(200).json({message : "pictureuploadedsuccessfully" , link : req.file.path});
+
+}
+module.exports ={getAllUsersCtrl , getUserProfileCtrl,updateUserProfileCtrl,numberOfUsersCtrl,uploadProfilePicCtrl};

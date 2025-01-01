@@ -2,6 +2,7 @@ const {validateUserInputLR} = require("../utils/validationutils") ;
 const userMdl = require("../models/userModel");
 const {hashPassword , comparePasswords} = require("../utils/hashingUtils") ; 
 const {genjwt} = require('../utils/jwtUtils');
+const asyncHandler = require('express-async-handler');
 const registerctrl = async(req,res)=>{
     
     const {error,value} =  validateUserInputLR(req.body,true) ;   
