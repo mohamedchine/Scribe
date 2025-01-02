@@ -8,6 +8,6 @@ usersRoutes.get('/users' , verifytokenandadmin,getAllUsersCtrl) ;
 usersRoutes.route('/profile/:id').get(validateObjid , getUserProfileCtrl).put(validateObjid,verifytokenandownership,updateUserProfileCtrl);
 usersRoutes.get('/NumberOfUsers' ,verifytokenandadmin,numberOfUsersCtrl);
 
-usersRoutes.post('/uploadpfp', upload.single('pfp'), uploadProfilePicCtrl);
+usersRoutes.post('/uploadpfp', verifytoken,upload.single('pfp'), uploadProfilePicCtrl);
 
 module.exports = usersRoutes;

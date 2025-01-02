@@ -4,7 +4,6 @@ const {hashPassword , comparePasswords} = require("../utils/hashingUtils") ;
 const {genjwt} = require('../utils/jwtUtils');
 const asyncHandler = require('express-async-handler');
 const registerctrl = async(req,res)=>{
-    
     const {error,value} =  validateUserInputLR(req.body,true) ;   
      if(error){
         return  res.status(400).json(error.details[0].message) ; 

@@ -1,6 +1,5 @@
 const multer = require('multer');
-const errorHandler = ((err, req, res, next) => {
-  console.log(err) ; 
+const errorHandler = ((err, req, res, next) => { 
     if (err instanceof multer.MulterError) {
       if (err.code == 'LIMIT_FILE_SIZE') {
         return res.status(400).json({ message: 'Maximum allowed picture size is 1 MB.' });
@@ -12,6 +11,6 @@ const errorHandler = ((err, req, res, next) => {
     if(err.message =='An unknown file format not allowed' ){
       return res.status(400).json({message : "please upload an image in this extension jpg, jpeg, png, gif, webp "});
     }
-   res.status(200).json({message : "internal server error"});
+   res.status(500).json({message : "internal server error"});
   });
 module.exports = errorHandler;

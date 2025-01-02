@@ -2,8 +2,7 @@ const userMdl = require('../models/userModel');
 const {validateUpdateUser} = require('../utils/validationutils');
 const asyncHandler = require('express-async-handler');
 const {comparePasswords,hashPassword} = require('../utils/hashingUtils');
- 
-
+const removeImageFCloudinary = require('../utils/cloudinary');
 
 const getAllUsersCtrl = async(req,res)=>{
      const users = await userMdl.find().select("-refreshtoken -password"); 
@@ -54,10 +53,16 @@ const numberOfUsersCtrl = async(req , res)=>{
 }
 
 const uploadProfilePicCtrl = async(req,res)=>{
-     if(!req.file){
-         return res.status(400).json({error : "no picture received"});
+     if(!req.file){ 
+          return res.status(400).json({error : "no picture received"});
      }
-     res.status(200).json({message : "pictureuploadedsuccessfully" , link : req.file.path});
-
+     //removing the old pfp if exists
+     if(req.user.profilePic.publicid) {
+          removeImageFCloudinary(req.user.profilePic.publicid);
+     }
+     //update the pfp in the db
+     [req.user.profilePic.url,req.user.profilePic.publicid] = [req.file.path,req.file.filename]; 
+     await req.user.save();
+     res.status(200).json({message : "pfp uploaded succesfully"});
 }
 module.exports ={getAllUsersCtrl , getUserProfileCtrl,updateUserProfileCtrl,numberOfUsersCtrl,uploadProfilePicCtrl};

@@ -20,10 +20,13 @@ const userSchema = new Schema ({
         required :true 
     }
     ,profilePic : {
-        type:Object , 
-        default :{
-            url : "https://pixabay.com/vectors/blank-profile-picture-mystery-man-973460/",
-            publicid : null ,
+        url: {
+            type: String,
+            default: "https://pixabay.com/vectors/blank-profile-picture-mystery-man-973460/"
+        },
+        publicid: {
+            type: String,
+            default: null
         }
     },
     bio :String , 
