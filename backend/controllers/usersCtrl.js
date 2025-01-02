@@ -47,10 +47,17 @@ const updateUserProfileCtrl = async(req,res)=>{
      },{new:"true"}).select("-password -refreshtoken");
      res.status(200).json({message: "user have been updated successfuly", updatedUser});
 }
+
+
+
+
 const numberOfUsersCtrl = async(req , res)=>{
      const numberOfUsers = await userMdl.countDocuments();
      res.status(200).json(numberOfUsers) ; 
 }
+
+
+
 
 const uploadProfilePicCtrl = async(req,res)=>{
      if(!req.file){ 
@@ -65,4 +72,25 @@ const uploadProfilePicCtrl = async(req,res)=>{
      await req.user.save();
      res.status(200).json({message : "pfp uploaded succesfully"});
 }
-module.exports ={getAllUsersCtrl , getUserProfileCtrl,updateUserProfileCtrl,numberOfUsersCtrl,uploadProfilePicCtrl};
+
+
+
+
+const deleteProfileCtrl =async(req,res)=>{
+     const usertodelete = await userMdl.findByIdAndDelete({_id :req.params.id});
+     
+     //delete it from the db
+     if(!usertodelete) return res.status(400).json({message: "user not found or already deleted"});
+     
+     //delete it from the cloud 
+     if(usertodelete.profilePic.publicid) removeImageFCloudinary(usertodelete.profilePic.publicid);
+     
+     res.status(200).json({message : "user deleted successfully"})
+
+}
+
+
+
+module.exports =
+{getAllUsersCtrl , getUserProfileCtrl,updateUserProfileCtrl,numberOfUsersCtrl,uploadProfilePicCtrl,
+     deleteProfileCtrl};

@@ -28,4 +28,11 @@ const verifytokenandownership = async (req,res,next)=>{
                 next() ;
         });
 }
-module.exports = {verifytoken,verifytokenandadmin,verifytokenandownership } ; 
+//for the delete profile only admin or usersthemselves can do it
+const verifytokenAndownershiptOradmin = async(req,res,next)=>{
+        verifytoken(req,res,()=>{
+                if (req.user.id == req.params.id || req.user.isAdmin) return next();
+                return res.status(403).json ({message :"u can't delete somoene elses profile"});
+        }) ; 
+}
+module.exports = {verifytoken,verifytokenandadmin,verifytokenandownership ,verifytokenAndownershiptOradmin} ; 
