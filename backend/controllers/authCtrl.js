@@ -1,4 +1,4 @@
-const {validateUserInputLR} = require("../utils/validationutils") ; 
+const {validateUserInputLR} = require("../utils/uservalidationUtils") ; 
 const userMdl = require("../models/userModel");
 const {hashPassword , comparePasswords} = require("../utils/hashingUtils") ; 
 const {genjwt} = require('../utils/jwtUtils');
@@ -45,14 +45,14 @@ const loginctrl = async(req,res)=>{
       httpOnly: true, 
       secure: process.env.node_env == 'production', 
       sameSite: 'strict', 
-      maxAge: 15 * 60 * 1000 // 15 minutes
+      maxAge: 15 * 60 * 1000
   });
   
   res.cookie('refreshT', refreshToken, {
       httpOnly: true, 
       secure: process.env.node_env == 'production', 
             sameSite: 'strict',
-      maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
+      maxAge: 7 * 24 * 60 * 60 * 1000
   });
   
     res.status(200).json({message : "logged in succefully"});}

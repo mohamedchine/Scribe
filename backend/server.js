@@ -3,6 +3,7 @@ const express = require("express");
 const dbconnection = require("./config/db");
 const authRoutes = require('./routes/authRoutes');
 const usersRoutes = require('./routes/usersRoutes');
+const postsRoutes = require('./routes/postsRoutes');
 const cookieparser = require('cookie-parser');
 const errorHandler = require('./middleware/errorHandler');
 const app = express();
@@ -12,6 +13,8 @@ dbconnection.on('connected',
     () => {
         app.use(authRoutes);
         app.use(usersRoutes);
+        app.use('/posts',postsRoutes);
+      
         app.use(errorHandler);
         app.all('*', (req, res) =>  res.status(404).json({ message: 'Route not found' }) );
         

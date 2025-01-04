@@ -1,5 +1,5 @@
 const userMdl = require('../models/userModel');
-const {validateUpdateUser} = require('../utils/validationutils');
+const {validateUpdateUser} = require('../utils/uservalidationUtils');
 const asyncHandler = require('express-async-handler');
 const {comparePasswords,hashPassword} = require('../utils/hashingUtils');
 const removeImageFCloudinary = require('../utils/cloudinary');

@@ -26,9 +26,9 @@ function validateUpdateUser(obj) {
         lastname  : nameStructure().optional() , 
         newpassword: passwordStructure().optional(),
         oldpassword : passwordStructure().optional(),
-        bio: joi.string().optional(),
+        bio: joi.string()
     });
-    //by default everything in the schema is required so we need to add the optional methode
+   
     return schema.validate(obj);
 }
 
