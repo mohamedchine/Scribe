@@ -6,14 +6,14 @@ const {removeImageFCloudinary,removeImagesFCloudinary} = require('../utils/cloud
 const postMdl = require('../models/postModel');
 const commentMdl = require('../models/commentModel');
 
-const getAllUsersCtrl = async(req,res)=>{
+const getAllUsersCtrl = asyncHandler(async(req,res)=>{
      const users = await userMdl.find().select("-refreshtoken -password").populate("posts"); 
      res.status(200).json(users);
 }
 
 
-
-const getUserProfileCtrl = async(req,res)=>{
+)
+const getUserProfileCtrl = asyncHandler(async(req,res)=>{
      const id =req.params.id ;
      const user = await userMdl.findOne({_id :id}).select("-refreshtoken -password").populate("posts");
      if (!user){
@@ -22,9 +22,9 @@ const getUserProfileCtrl = async(req,res)=>{
      res.status(200).json(user) ; 
 }
 
+)
 
-
-const updateUserProfileCtrl = async(req,res)=>{
+const updateUserProfileCtrl =asyncHandler( async(req,res)=>{
      const {error ,value} = validateUpdateUser(req.body) ;
      if(error){
           return res.status(400).json({message : error.details[0].message});
@@ -49,19 +49,19 @@ const updateUserProfileCtrl = async(req,res)=>{
      },{new:"true"}).select("-password -refreshtoken");
      res.status(200).json({message: "user have been updated successfuly", updatedUser});
 }
+)
 
 
 
-
-const numberOfUsersCtrl = async(req , res)=>{
+const numberOfUsersCtrl = asyncHandler(async(req , res)=>{
      const numberOfUsers = await userMdl.countDocuments();
      res.status(200).json(numberOfUsers) ; 
 }
 
 
+)
 
-
-const uploadProfilePicCtrl = async(req,res)=>{
+const uploadProfilePicCtrl =asyncHandler( async(req,res)=>{
      if(!req.file){ 
           return res.status(400).json({error : "no picture received"});
      }
@@ -75,10 +75,10 @@ const uploadProfilePicCtrl = async(req,res)=>{
      res.status(200).json({message : "pfp uploaded succesfully"});
 }
 
+)
 
 
-
-const deleteProfileCtrl =async(req,res)=>{
+const deleteProfileCtrl =asyncHandler(async(req,res)=>{
      //delete him from the db
      const usertodelete = await userMdl.findByIdAndDelete({_id :req.params.id});
      
@@ -127,7 +127,7 @@ const deleteProfileCtrl =async(req,res)=>{
      res.status(200).json({message : "user deleted successfully"})
 
 }
-
+)
 
 
 module.exports =

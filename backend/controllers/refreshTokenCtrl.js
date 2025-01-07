@@ -1,6 +1,7 @@
 const userMdl = require("../models/userModel");
 const {verifyjwt,genjwt} = require("../utils/jwtUtils");
-const refreshTokenCtrl =async(req,res)=>{
+const asyncHandler = require('express-async-handler');
+const refreshTokenCtrl =asyncHandler(async(req,res)=>{
     const refreshtoken = req.cookies?.refreshT ;
     //look for refreshtoken
     if(!refreshtoken) return res.status(401);
@@ -23,5 +24,5 @@ const refreshTokenCtrl =async(req,res)=>{
             maxAge: 15 * 60 * 1000 // 15 minutes
         });
         res.status(200);
-}
+})
 module.exports= refreshTokenCtrl ;

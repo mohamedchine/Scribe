@@ -7,6 +7,7 @@ const postsRoutes = require('./routes/postsRoutes');
 const commentRoutes = require('./routes/commentRoutes') ; 
 const cookieparser = require('cookie-parser');
 const errorHandler = require('./middleware/errorHandler');
+const categRoutes = require("./routes/categRoutes");
 const app = express();
 app.use(express.json());
 app.use(cookieparser()); 
@@ -16,6 +17,7 @@ dbconnection.on('connected',
         app.use(usersRoutes);
         app.use('/posts',postsRoutes);
         app.use('/comments' , commentRoutes);
+        app.use('/categories',categRoutes);
       
         app.use(errorHandler);
         app.all('*', (req, res) =>  res.status(404).json({ message: 'Route not found' }) );

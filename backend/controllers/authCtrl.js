@@ -3,7 +3,7 @@ const userMdl = require("../models/userModel");
 const {hashPassword , comparePasswords} = require("../utils/hashingUtils") ; 
 const {genjwt} = require('../utils/jwtUtils');
 const asyncHandler = require('express-async-handler');
-const registerctrl = async(req,res)=>{
+const registerctrl = asyncHandler(async(req,res)=>{
     const {error,value} =  validateUserInputLR(req.body,true) ;   
      if(error){
         return  res.status(400).json(error.details[0].message) ; 
@@ -15,8 +15,8 @@ const registerctrl = async(req,res)=>{
      const hashedpassword = await hashPassword(value.password) ;
      await userMdl.create({name : value.name ,lastname  : value.lastname , email : req.body.email ,password : hashedpassword }) ; //value contain the name after the triming in the validationutils
      res.status(201).json({message : "registered successfully "});
-}
-const loginctrl = async(req,res)=>{
+})
+const loginctrl = asyncHandler(async(req,res)=>{
 
     try{ const {error}  = validateUserInputLR(req.body ,false) ; 
      if(error){
@@ -59,5 +59,5 @@ const loginctrl = async(req,res)=>{
     catch(e){
         res.status(404).json(e , "internal server error")
     }
-}
+})
 module.exports = {registerctrl ,loginctrl} ; 

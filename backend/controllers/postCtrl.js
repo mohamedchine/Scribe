@@ -1,9 +1,10 @@
 const {validatePost, validateUpdatePost} = require('../utils/postvalidationUtils') ;
 const postMdl = require('../models/postModel');
 const commentMdl = require('../models/commentModel');
+const asyncHandler =require("express-async-handler");
 const { removeImageFCloudinary }= require('../utils/cloudinary');
 
-const createPostCtrl = async(req , res)=>{
+const createPostCtrl = asyncHandler(async(req , res)=>{
      
     if(!req.file){
         return res.status(400).json({message : "no picture provided"}) ; 
@@ -26,30 +27,30 @@ const createPostCtrl = async(req , res)=>{
     res.status(201).json({message : "post created succefully"});
 
 }
-
-const getAllPostsCtrl =async(req,res)=>{
+)
+const getAllPostsCtrl =asyncHandler(async(req,res)=>{
     const postPerPage = 3 ; 
     var {pageNumber , category} = req.query ;
     category  = category ? {category} : {};   //to find all if theres no category ;
     const posts = await postMdl.find(category).skip(isNaN(pageNumber) ? 0 : (pageNumber-1)*postPerPage).limit(isNaN(pageNumber)?  0 : postPerPage).populate('author' ,["-password" ,"-refreshtoken"]).sort({createdAt : -1});
     return res.status(200).json(posts);
-}
+})
 
 
 
-const getSinglePostCtrl = async(req,res)=>{
+const getSinglePostCtrl = asyncHandler(async(req,res)=>{
     const id = req.params.id ; 
     const post = await postMdl.findOne({_id : id}).populate('author',["-password" ,"-refreshtoken"]).populate("comments") ;
     post? res.status(200).json(post) : res.status(404).json({message : "post not found"}) ;
-}
+})
 
-const numberOfPostsCtrl = async(req,res)=>{
+const numberOfPostsCtrl = asyncHandler(async(req,res)=>{
     const n = await postMdl.countDocuments() ; 
     res.status(200).json(n);
 }
+)
 
-
-const deletePostCtrl = async(req,res)=>{ 
+const deletePostCtrl = asyncHandler(async(req,res)=>{ 
     const post = await postMdl.findOne({_id :req.params.id}) ;
     if(!post) {
         return res.status(404).json({message:"no post found"});
@@ -64,9 +65,9 @@ const deletePostCtrl = async(req,res)=>{
     await commentMdl.deleteMany({postid :post._id });
     
     res.status(200).json({message : "deleted succssfuly"});
-}
+})
 //no admin only owner
-const updatePostCtrl = async(req,res)=>{
+const updatePostCtrl = asyncHandler(async(req,res)=>{
     const {error} =validateUpdatePost(req.body);
     if(error) return res.status(400).json({message : error.details[0].message});
     
@@ -79,11 +80,11 @@ const updatePostCtrl = async(req,res)=>{
     });
     res.status(200).json({message:"updated successfuly"});
 }
+)
 
 
 
-
-const ModifyPostPicCtrl = async(req,res)=>{
+const ModifyPostPicCtrl = asyncHandler(async(req,res)=>{
 
     if(!req.file)  return res.status(400).json({message : "u gotta do a picture"}) ; 
    
@@ -96,9 +97,9 @@ const ModifyPostPicCtrl = async(req,res)=>{
     res.status(200).json({message : req.post});
 }
 
+)
 
-
-const removeOrAddLike = async(req,res)=>{
+const removeOrAddLike = asyncHandler(async(req,res)=>{
     const postid = req.params.id ; 
     const userid = req.user._id ; 
     
@@ -121,7 +122,7 @@ const removeOrAddLike = async(req,res)=>{
     };
     await post.save() ; 
     return res.status(200).json(post) ; 
-}
+})
 module.exports = 
 {createPostCtrl,getAllPostsCtrl ,
      getSinglePostCtrl,numberOfPostsCtrl,

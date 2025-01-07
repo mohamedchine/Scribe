@@ -2,7 +2,8 @@ const {validateCreateComment , validateUpdateComment} = require('../utils/commen
 const commentMdl = require('../models/commentModel');
 const userMdl = require('../models/userModel') ; 
 const postMdl = require('../models/postModel') ; 
-const createCommentCtrl = async(req,res) =>{
+const asyncHandler = require("express-async-handler");
+const createCommentCtrl = asyncHandler(async(req,res) =>{
     const {error} = validateCreateComment(req.body) ; 
     if(error){
         return res.status(400).json({message :error.details[0].message}) ; 
@@ -23,14 +24,14 @@ const createCommentCtrl = async(req,res) =>{
 
 }
 
+)
 
-
-const getAllCommentsCtrl = async(req,res)=>{
+const getAllCommentsCtrl = asyncHandler(async(req,res)=>{
     const comments  = await commentMdl.find();
     return res.status(200).json(comments); 
 }
-
-const deleteCommentCtrl = async(req,res)=>{
+)
+const deleteCommentCtrl =asyncHandler( async(req,res)=>{
     
     const comment = await commentMdl.findOne ({_id : req.params.id}) ;
     if(!comment) return res.status(404).json({message: "comment not found or have been already deleted "}) ; 
@@ -42,9 +43,9 @@ const deleteCommentCtrl = async(req,res)=>{
     await comment.deleteOne();
     return res.status(200).json({message :"comment deleted sc"}) ;
 }
+)
 
-
-const updateCommentCtrl = async(req,res)=>{
+const updateCommentCtrl =asyncHandler( async(req,res)=>{
     
     const {error} = validateUpdateComment(req.body) ; 
     if(error) return res.status(400).json({message : "provide the new comment value please"}) ; 
@@ -63,7 +64,7 @@ const updateCommentCtrl = async(req,res)=>{
      ,{new : true});
     return res.status(200).json(updatedcomment) ; 
 }
-
+)
 
 
 module.exports = {createCommentCtrl,getAllCommentsCtrl,deleteCommentCtrl,updateCommentCtrl} ;
