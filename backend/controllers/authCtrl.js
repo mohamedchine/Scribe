@@ -55,7 +55,7 @@ const loginctrl = async(req,res)=>{
       maxAge: 7 * 24 * 60 * 60 * 1000
   });
   
-    res.status(200).json({message : "logged in succefully"});}
+    res.status(200).json({_id : user._id , isAdmin : user.isAdmin , profilephoto:user.profilePic , fullname :user.name +" "+user.lastname});}
     catch(e){
         res.status(404).json(e , "internal server error")
     }

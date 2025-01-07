@@ -43,6 +43,17 @@ const userSchema = new Schema ({
         default:""
     }
 
-},{timestamps : true}) ; 
+},{timestamps : true , 
+toJSON : {virtuals : true} //its like telling mongoose to include the virtuals when we are transforming the user into json (sending it using res.json())
+,toObject : {virtuals : true}} //let the virtual show when toObject is called ,mongoose calls toobject internally when finding a doc so always use it 
+) ; 
+userSchema.virtual("posts",{
+    ref:"post"  //doc name not collection
+    ,foreignField : "author" , 
+    localField : "_id"
+}) ; 
+//return all posts made by that user virtually not stored in db (instead of looking for them our selves or saving them in userdoc we save them virtually and we get them using populate);
+//is like select from post user where author = user.id in sql or await post.find({author : userid}) but we make it this way so we dont have to use find methode and we get them using populate directly 
+
 const userMdl = dbconnection.model("user" , userSchema) ; 
 module.exports = userMdl ; 

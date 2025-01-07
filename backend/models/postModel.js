@@ -40,6 +40,12 @@ const postschema = new mongoose.Schema({
             ref : "user" 
         }
     ]
-},{timestamps : true});
+},{timestamps : true , toJSON:{virtuals : true} ,toObject:{virtuals : true}});
+postschema.virtual("comments" , {
+    ref : "comment",
+    foreignField :"postid" ,
+    localField : "_id"
+})
+
 const postMdl = dbconnection.model("post" , postschema) ;
 module.exports =  postMdl ;  

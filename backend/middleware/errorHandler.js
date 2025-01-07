@@ -9,7 +9,7 @@ const errorHandler = ((err, req, res, next) => {
       }
     } 
     if(err.message =='An unknown file format not allowed' ){
-      return res.status(400).json({message : "please upload an image in this extension jpg, jpeg, png, gif, webp "});
+      return res.status(400).json({message : "please upload a valid image in this extension jpg, jpeg, png, gif, webp "});
     }
    res.status(500).json({message:"internal server error"});
   });

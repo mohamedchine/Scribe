@@ -1,6 +1,6 @@
 const {verifyjwt} = require('../utils/jwtUtils'); 
 const userMdl = require('../models/userModel');
-
+const postMdl = require('../models/postModel');
 
 const verifytoken = async (req, res, next) => {
         if (!req.cookies?.accessT) return res.status(401).json({message:"no token"});
@@ -35,4 +35,18 @@ const verifytokenAndownershiptOradmin = async(req,res,next)=>{
                 return res.status(403).json ({message :"u can't delete somoene elses profile"});
         }) ; 
 }
-module.exports = {verifytoken,verifytokenandadmin,verifytokenandownership ,verifytokenAndownershiptOradmin} ; 
+const verifytokenAndPostOwnership = async(req,res,next)=>{
+        //first we verify post existince
+        const post = await postMdl.findOne({ _id : req.params.id}) ;
+        if(!post) return res.status(400).json({message : "no post with that id sir"}) ;
+      
+        //second we verify user authentification
+        verifytoken(req,res,()=>{         
+                //third we verify authorisation (post ownership)
+         if( ! post.author.equals(req.user._id)) return res.status(403).json({message : "u cant update somoene elses post"});
+         req.post = post ; 
+         //if all good he can update
+         next();
+        })
+}
+module.exports = {verifytoken,verifytokenandadmin,verifytokenandownership ,verifytokenAndownershiptOradmin,verifytokenAndPostOwnership} ; 

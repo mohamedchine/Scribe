@@ -2,10 +2,12 @@ const userMdl = require('../models/userModel');
 const {validateUpdateUser} = require('../utils/uservalidationUtils');
 const asyncHandler = require('express-async-handler');
 const {comparePasswords,hashPassword} = require('../utils/hashingUtils');
-const removeImageFCloudinary = require('../utils/cloudinary');
+const {removeImageFCloudinary,removeImagesFCloudinary} = require('../utils/cloudinary');
+const postMdl = require('../models/postModel');
+const commentMdl = require('../models/commentModel');
 
 const getAllUsersCtrl = async(req,res)=>{
-     const users = await userMdl.find().select("-refreshtoken -password"); 
+     const users = await userMdl.find().select("-refreshtoken -password").populate("posts"); 
      res.status(200).json(users);
 }
 
@@ -13,7 +15,7 @@ const getAllUsersCtrl = async(req,res)=>{
 
 const getUserProfileCtrl = async(req,res)=>{
      const id =req.params.id ;
-     const user = await userMdl.findOne({_id :id}).select("-refreshtoken -password");
+     const user = await userMdl.findOne({_id :id}).select("-refreshtoken -password").populate("posts");
      if (!user){
          return res.status(400).json({message : 'not found'});
      }
@@ -65,7 +67,7 @@ const uploadProfilePicCtrl = async(req,res)=>{
      }
      //removing the old pfp if exists
      if(req.user.profilePic.publicid) {
-          removeImageFCloudinary(req.user.profilePic.publicid);
+          await removeImageFCloudinary(req.user.profilePic.publicid);
      }
      //update the pfp in the db
      [req.user.profilePic.url,req.user.profilePic.publicid] = [req.file.path,req.file.filename]; 
@@ -77,14 +79,51 @@ const uploadProfilePicCtrl = async(req,res)=>{
 
 
 const deleteProfileCtrl =async(req,res)=>{
+     //delete him from the db
      const usertodelete = await userMdl.findByIdAndDelete({_id :req.params.id});
      
-     //delete it from the db
+     
      if(!usertodelete) return res.status(400).json({message: "user not found or already deleted"});
      
-     //delete it from the cloud 
-     if(usertodelete.profilePic.publicid) removeImageFCloudinary(usertodelete.profilePic.publicid);
+     //delete his pfp the cloud 
+     if(usertodelete.profilePic.publicid) await removeImageFCloudinary(usertodelete.profilePic.publicid);
      
+
+     //delete his posts pic from cloud 
+      const userposts = await postMdl.find({author : usertodelete._id}) ; 
+      
+
+         //get array of picpublicids
+         var userPostPicsPubids = [] ;
+         for(let post of userposts){
+          userPostPicsPubids [userPostPicsPubids.length] = post.photo.publicid ; 
+         }
+
+         if(userPostPicsPubids.length >0){
+          await removeImagesFCloudinary(userPostPicsPubids);
+         }
+
+
+
+     //delete his posts comments 
+     await postMdl.deleteMany({author : usertodelete._id});
+     await commentMdl.deleteMany({authorid : usertodelete._id});
+     
+     //delete his likes at otherposts
+     const allposts = await postMdl.find() ;
+     for(let post of allposts){
+          if(post.likes.includes(usertodelete._id)){
+               var newpostlikes =[];
+               for(let id of post.likes){
+                    if(!id.equals(usertodelete._id)){
+                         newpostlikes[newpostlikes.length] = id
+                    }
+               }
+               post.likes = newpostlikes ;
+          }
+          post.save();
+     }
+
      res.status(200).json({message : "user deleted successfully"})
 
 }

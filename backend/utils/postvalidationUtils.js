@@ -21,5 +21,6 @@ const validateUpdatePost = (post)=>{
         desc : joi.string().min(10).max(1000),
         category : joi.string()
     })
+    return postStructure.validate(post);
 } 
 module.exports = {validatePost  , validateUpdatePost} ;
