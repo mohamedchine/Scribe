@@ -1,4 +1,6 @@
 const {Router} = require("express") ;
+const {loginLimiter} =require('../middleware/Limiter') ;
+//imma add it in production with some recaptcha
 const authRoutes = Router() ;
 const {registerctrl , loginctrl} = require("../controllers/authCtrl");
 authRoutes.post('/register' , registerctrl);

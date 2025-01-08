@@ -1,16 +1,24 @@
 require("dotenv").config(); 
-const express = require("express");
 const dbconnection = require("./config/db");
+const express = require("express");
+const cookieparser = require('cookie-parser');
+const errorHandler = require('./middleware/errorHandler');
+const hpp=require('hpp');
+const xss = require('xss-clean');
+const {globalLimiter} = require('./middleware/Limiter');
+
 const authRoutes = require('./routes/authRoutes');
 const usersRoutes = require('./routes/usersRoutes');
 const postsRoutes = require('./routes/postsRoutes');
 const commentRoutes = require('./routes/commentRoutes') ; 
-const cookieparser = require('cookie-parser');
-const errorHandler = require('./middleware/errorHandler');
 const categRoutes = require("./routes/categRoutes");
+
 const app = express();
 app.use(express.json());
 app.use(cookieparser()); 
+app.use(globalLimiter);
+app.use(hpp());
+app.use(xss());
 dbconnection.on('connected', 
     () => {
         app.use(authRoutes);
