@@ -1,0 +1,17 @@
+.home-page-content{
+    display: flex;
+    font-size: 16px;
+    padding-left: 10px;
+}
+.home-latest{
+    font-size: 18px ;
+    margin: 10px 5px;
+    text-decoration: underline;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.post-list{
+    flex:9 ; 
+}
+.posts-sidebar{
+    flex : 3;
+}

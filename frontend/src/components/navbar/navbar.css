@@ -1,0 +1,140 @@
+a{
+    all:unset;
+}
+.navbar {
+    padding: 10px 50px;
+    background-color: gainsboro;
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    position: fixed;
+    left: 0px;
+    right: 0px;
+    top:0;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 400;
+    color:rgb(140 140 140);
+    gap:20px;
+    font-size: 20px;
+    height: 70px;
+    z-index:99;
+}
+
+.navbar-leftside {
+    display: flex;
+    margin-right: 10px; 
+    font-size: 30px;
+    font-weight:bold;
+    color: rgb(112, 109, 109);
+    height:100%;
+    font-style: italic;
+}
+
+.navbar-middle {
+
+    display: flex;
+    flex: 1;
+    justify-content: space-evenly; 
+    font-size: 15px;
+    height:100%;
+    
+    align-items: center;
+}
+
+.navbar-right {
+
+    display: flex;
+    gap:20px;
+   
+    font-size: 15px;
+}
+.navbar-leftside .app-name{
+    text-decoration: underline;
+    font-family:Arial, Helvetica, sans-serif; 
+}
+.navbar-middle div{
+    display: flex;
+    gap: 5px;
+  
+    align-items: center;
+}
+.navbar-right div{
+    display: flex;
+    gap: 6px;
+    align-items: center;
+}
+.navbar-leftside div{
+    display: flex;
+    align-items: center;
+}
+.navbar-leftside .menu-icon{
+    display: none;
+}
+.navbar-right .login,.navbar-right .register{
+    border: 1px solid rgb(112, 109, 109);
+    border-radius: 15px;
+    padding: 10px 5px;
+    
+}
+.navbar-middle .x:hover ,.navbar-right .login:hover , .navbar-right .register:hover{
+    color:aliceblue;
+    cursor:pointer;
+}
+.navbar-right .login:hover,.navbar-right .register:hover{
+    background-color:  rgb(112, 109, 109); 
+    color:aliceblue;
+}
+
+@media(max-width : 800px){
+    .navbar-leftside .menu-icon{
+        display: flex;
+        margin-right: 20px;
+     
+        justify-content: center;
+        align-items: center;
+    }
+    .navbar-middle{
+        all: unset;   /*   reset all old stuff */
+        position:absolute ; 
+        display: flex;
+        flex-direction:column ;
+        left: 0px; 
+        right: 0px;  
+        top: 100%; /*make it under the navbar */
+        clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+        gap: 10px;
+       background-color: rgb(102, 102, 102);
+       color: #b1b1b1;
+
+    }
+    .navbar-middle .x{
+        
+        padding: 5px 15px;
+        width: 100%;
+
+    }
+
+    .navbar{
+        justify-content: space-between;
+        padding: 5px 10px;
+        gap: 5px;
+    }
+    .navbar-leftside{
+        align-items: center; /*   jst bcs the menuicon didnt has the center at first  */
+        padding: 0px;
+        margin: 0px;
+        gap: 3px;
+        font-size: 22px;
+        justify-content: center;
+    }
+    .navbar-right{
+        margin: 0px;
+        padding: 0px;
+        gap: 3px;
+        font-size: 13px;
+    }
+    .navbar-leftside .menu-icon{
+        margin-right: 0px;
+        cursor: pointer;
+    }
+}
