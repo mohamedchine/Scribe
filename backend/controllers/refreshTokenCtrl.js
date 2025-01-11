@@ -7,7 +7,7 @@ const refreshTokenCtrl =async(req,res)=>{
     if(!refreshtoken) return res.status(401).json({message:"unauthorized"});
         // check if the jwt valid 
          const id =  verifyjwt(refreshtoken,process.env.refreshTokenKey) ; 
-         console.log(id);
+         
          if(!id){
              return res.status(401).json({message:"unauthorized"});
          }
