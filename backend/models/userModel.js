@@ -39,8 +39,7 @@ const userSchema = new Schema ({
         default:false 
     },
     refreshtoken:{
-        type:String,
-        default:""
+        type:String, //did it in an array to allow login in multiple devices
     }
 
 },{timestamps : true , 

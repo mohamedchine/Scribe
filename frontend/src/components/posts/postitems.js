@@ -1,8 +1,20 @@
 const Postitems = ({post}) => {
     return ( 
         <div className="post-itmes">
-            <div className="post-img-wrapper">
-            <img src={post.image} alt={post.title} className="post-img" />
+            <div className="post-author-wrapper">
+                
+                <div className="post-author-img">
+                            
+                </div>
+                
+                <div className="post-author-fullname">
+
+                </div>
+            
+            </div>
+            <div className="post-content-wrapper">
+                
+
             </div>
         </div>
      );

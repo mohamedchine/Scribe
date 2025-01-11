@@ -33,8 +33,8 @@ const loginctrl = asyncHandler(async(req,res)=>{
       return res.status(400).json({message : "invalid email or password"});
      }
     //we would create for him the access and the refresh token
-    const refreshToken=genjwt({id:user._id},'7d');
-    const accessToken = genjwt({id:user._id , isAdmin:user.isAdmin},'15m');
+    const refreshToken=genjwt({id:user._id},'7d',process.env.refreshTokenKey);
+    const accessToken = genjwt({id:user._id , isAdmin:user.isAdmin},'15m',process.env.accessTokenkey);
 
 
     //save the refresh token in the db in case we want to invalidate it in the future

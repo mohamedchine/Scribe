@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken") ; 
-const genjwt=(payload , expiration)=>{
-      const token = jwt.sign(payload , process.env.accessTokenkey,{expiresIn:expiration}); 
+const genjwt=(payload , expiration,key)=>{
+      const token = jwt.sign(payload , key ,{expiresIn:expiration}); 
       return token ; 
 }
 const verifyjwt = (token ,key)=>{
@@ -9,6 +9,7 @@ const verifyjwt = (token ,key)=>{
             return id ;
 }
 catch(e){
+      
      return null;
 }
 }

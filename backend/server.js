@@ -7,6 +7,8 @@ const hpp=require('hpp');
 const xss = require('xss-clean');
 const {globalLimiter} = require('./middleware/Limiter');
 
+
+const reftokenRoute = require('./routes/refTokenRoute') ; 
 const authRoutes = require('./routes/authRoutes');
 const usersRoutes = require('./routes/usersRoutes');
 const postsRoutes = require('./routes/postsRoutes');
@@ -21,12 +23,13 @@ app.use(hpp());
 app.use(xss());
 dbconnection.on('connected', 
     () => {
+        app.use(reftokenRoute);
         app.use(authRoutes);
         app.use(usersRoutes);
         app.use('/posts',postsRoutes);
         app.use('/comments' , commentRoutes);
         app.use('/categories',categRoutes);
-      
+
         app.use(errorHandler);
         app.all('*', (req, res) =>  res.status(404).json({ message: 'Route not found' }) );
         
