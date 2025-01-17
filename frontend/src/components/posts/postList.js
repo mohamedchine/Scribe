@@ -1,5 +1,5 @@
 import Postitems from './postitems'
-import './posts.css'
+import './post.css'
 const Postlist = ({posts}) => {
     return (  
         <div className="post-list">

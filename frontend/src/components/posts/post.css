@@ -1,0 +1,129 @@
+
+.post-items {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 16px;
+    margin: 16px 0;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+    width: 70%;
+    margin-left: 10px;
+}
+
+.post-items:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.post-author-wrapper {
+    display: flex;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.post-author-img-wrapper {
+    flex-shrink: 0;
+    margin-right: 12px;
+}
+
+.post-author-img {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #007bff;
+}
+
+.post-author-fullname {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #007bff;
+    margin: 0;
+    text-decoration: none;
+}
+
+.post-author-fullname:hover {
+    text-decoration: underline;
+}
+
+.hor-line-post-items {
+    width: 100%;
+    height: 1px;
+    background-color: #ddd;
+    margin: 16px 0;
+}
+
+.post-text-wrapper {
+    margin-bottom: 16px;
+}
+
+.post-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: #333;
+}
+
+.post-category {
+    font-size: 1rem;
+    color: #007bff;
+    margin-bottom: 8px;
+    cursor: pointer;
+}
+
+.post-category:hover {
+    text-decoration: underline;
+}
+
+.post-description {
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: 16px;
+}
+
+.post-image-wrapper img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 16px;
+}
+
+.post-dateandlike {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.9rem;
+    color: #888;
+}
+
+
+@media (max-width: 768px) {
+    .post-author-wrapper {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .post-author-img {
+        width: 40px;
+        height: 40px;
+    }
+
+    .post-title {
+        font-size: 1.2rem;
+    }
+
+    .post-category,
+    .post-description {
+        font-size: 0.9rem;
+    }
+
+    .post-dateandlike {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .post-dateandlike p {
+        margin-bottom: 8px;
+    }
+}
