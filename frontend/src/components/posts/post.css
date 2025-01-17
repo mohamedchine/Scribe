@@ -1,4 +1,3 @@
-
 .post-items {
     border: 1px solid #ddd;
     border-radius: 8px;
@@ -125,5 +124,8 @@
 
     .post-dateandlike p {
         margin-bottom: 8px;
+    }
+    .post-list{
+        gap: 50px;
     }
 }
