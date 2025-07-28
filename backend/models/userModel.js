@@ -23,11 +23,11 @@ const userSchema = new Schema ({
         url: {
             type: String,
             default: "https://pixabay.com/vectors/blank-profile-picture-mystery-man-973460/"
-        },
+        },//for viewing
         publicid: {
             type: String,
             default: null
-        }
+        }//for cloudinary to manage the picture  
     },
     bio :String , 
     isAdmin :{

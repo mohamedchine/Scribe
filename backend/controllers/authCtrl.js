@@ -3,6 +3,9 @@ const userMdl = require("../models/userModel");
 const {hashPassword , comparePasswords} = require("../utils/hashingUtils") ; 
 const {genjwt} = require('../utils/jwtUtils');
 const asyncHandler = require('express-async-handler');
+
+
+
 const registerctrl = asyncHandler(async(req,res)=>{
     const {error,value} =  validateUserInputLR(req.body,true) ;   
      if(error){
@@ -10,12 +13,17 @@ const registerctrl = asyncHandler(async(req,res)=>{
      }
      const exist  = await userMdl.findOne({email:req.body.email}) ; 
      if (exist){
-        return res.status(400).json({error : "sorry user already exists"})
+        return res.status(400).json({error : "user already exists"})
      }
      const hashedpassword = await hashPassword(value.password) ;
      await userMdl.create({name : value.name ,lastname  : value.lastname , email : req.body.email ,password : hashedpassword }) ; //value contain the name after the triming in the validationutils
      res.status(201).json({message : "registered successfully "});
 })
+
+
+
+
+
 const loginctrl = asyncHandler(async(req,res)=>{
 
     try{ const {error}  = validateUserInputLR(req.body ,false) ; 
@@ -60,4 +68,7 @@ const loginctrl = asyncHandler(async(req,res)=>{
         res.status(404).json(e , "internal server error")
     }
 })
+
+
+
 module.exports = {registerctrl ,loginctrl} ; 

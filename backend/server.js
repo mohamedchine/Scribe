@@ -24,7 +24,7 @@ app.use(xss());
 dbconnection.on('connected', 
     () => {
         app.use(reftokenRoute);
-        app.use(authRoutes);
+        app.use("/api/auth",authRoutes);
         app.use(usersRoutes);
         app.use('/posts',postsRoutes);
         app.use('/comments' , commentRoutes);

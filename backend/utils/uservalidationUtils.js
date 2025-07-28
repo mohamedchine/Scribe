@@ -5,6 +5,9 @@ const passwordStructure = ()=>{
 const nameStructure =()=>{
     return joi.string().min(2).max(20).required().trim().pattern(/^[a-zA-Z]+$/); //start with string ^, ends with string $  , one or more occurence of letters + => only contains letters
 }
+
+
+
 const validateUserInputLR = (user , isRegistering ) =>{
     
     let schema = joi.object({
@@ -20,6 +23,8 @@ const validateUserInputLR = (user , isRegistering ) =>{
     return schema.validate(user);
   
 }
+
+
 function validateUpdateUser(obj) {
     const schema = joi.object({
         name  : nameStructure().optional(), 
