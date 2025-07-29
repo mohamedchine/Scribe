@@ -124,7 +124,7 @@ const deleteProfileCtrl =asyncHandler(async(req,res)=>{
           }
           post.save();
      }
-     //remove his access token in case its his profile 
+     //remove his access token in case its his profile like if he is not an admin trying to delete an other user profile
      if(req.params.id == req.user.id)    
           res.clearCookie('accessT', {
           httpOnly: true,
