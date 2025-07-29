@@ -5,6 +5,7 @@ const hashPassword = async(pass)=>{
 }
 const comparePasswords = async(password , hashedpassword)=>{ 
     const match = await bcrypt.compare(password,hashedpassword) ; 
+    
     return match ; 
 }
 // hashPassword("raniaxyz").then((ps)=>(console.log(ps))) ; 

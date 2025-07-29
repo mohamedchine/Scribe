@@ -6,7 +6,7 @@ const upload = require('../middleware/multer') ;
 const validateObjid = require('../middleware/validateobjid');
 const usersRoutes = require('express').Router();
 
-usersRoutes.get('/users' , verifytokenandadmin,getAllUsersCtrl) ; 
+usersRoutes.get('/' , verifytokenandadmin,getAllUsersCtrl) ; 
 
 
 usersRoutes.route('/profile/:id').get(validateObjid , getUserProfileCtrl)
@@ -14,7 +14,7 @@ usersRoutes.route('/profile/:id').get(validateObjid , getUserProfileCtrl)
 .delete(validateObjid,verifytokenAndownershiptOradmin,deleteProfileCtrl)
 
 
-usersRoutes.get('/NumberOfUsers' ,verifytokenandadmin,numberOfUsersCtrl);
+usersRoutes.get('/Count' ,verifytokenandadmin,numberOfUsersCtrl);
 
 usersRoutes.post('/uploadpfp', verifytoken,upload.single('pfp'), uploadProfilePicCtrl);
 

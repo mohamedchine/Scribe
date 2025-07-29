@@ -25,10 +25,10 @@ dbconnection.on('connected',
     () => {
         app.use(reftokenRoute);
         app.use("/api/auth",authRoutes);
-        app.use(usersRoutes);
-        app.use('/posts',postsRoutes);
-        app.use('/comments' , commentRoutes);
-        app.use('/categories',categRoutes);
+        app.use("/api/users",usersRoutes);
+        app.use('/api/posts',postsRoutes);
+        app.use('/api/comments' , commentRoutes);
+        app.use('/api/categories',categRoutes);
 
         app.use(errorHandler);
         app.all('*', (req, res) =>  res.status(404).json({ message: 'Route not found' }) );

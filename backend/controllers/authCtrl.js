@@ -25,7 +25,7 @@ const registerctrl = asyncHandler(async(req,res)=>{
 
 
 const loginctrl = asyncHandler(async(req,res)=>{
-
+ 
     try{ const {error}  = validateUserInputLR(req.body ,false) ; 
      if(error){
      return  res.status(400).json({message : error.details[0].message});
@@ -37,16 +37,17 @@ const loginctrl = asyncHandler(async(req,res)=>{
      }
      //compare passwords
      const passwordmatch = await comparePasswords(req.body.password , user.password) ; 
+    
      if (!passwordmatch){
       return res.status(400).json({message : "invalid email or password"});
      }
     //we would create for him the access and the refresh token
-    const refreshToken=genjwt({id:user._id},'7d',process.env.refreshTokenKey);
-    const accessToken = genjwt({id:user._id , isAdmin:user.isAdmin},'15m',process.env.accessTokenkey);
+    // const refreshToken=genjwt({id:user._id},'7d',process.env.refreshTokenKey);
+    const accessToken = genjwt({id:user._id , isAdmin:user.isAdmin},'7d',process.env.accessTokenkey);
 
 
     //save the refresh token in the db in case we want to invalidate it in the future
-    user.refreshtoken=refreshToken;
+    // user.refreshtoken=refreshToken;
     await user.save(); 
    
     res.cookie('accessT', accessToken, {
@@ -56,12 +57,12 @@ const loginctrl = asyncHandler(async(req,res)=>{
       maxAge: 15 * 60 * 1000
   });
   
-  res.cookie('refreshT', refreshToken, {
-      httpOnly: true, 
-      secure: process.env.node_env == 'production', 
-            sameSite: 'strict',
-      maxAge: 7 * 24 * 60 * 60 * 1000
-  });
+//   res.cookie('refreshT', refreshToken, {
+//       httpOnly: true, 
+//       secure: process.env.node_env == 'production', 
+//             sameSite: 'strict',
+//       maxAge: 7 * 24 * 60 * 60 * 1000
+//   });
   
     res.status(200).json({_id : user._id , isAdmin : user.isAdmin , profilephoto:user.profilePic , fullname :user.name +" "+user.lastname});}
     catch(e){
