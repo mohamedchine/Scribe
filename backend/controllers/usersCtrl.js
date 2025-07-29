@@ -54,6 +54,7 @@ const updateUserProfileCtrl =asyncHandler( async(req,res)=>{
 
 
 const numberOfUsersCtrl = asyncHandler(async(req , res)=>{
+    
      const numberOfUsers = await userMdl.countDocuments();
      res.status(200).json(numberOfUsers) ; 
 }
@@ -123,7 +124,14 @@ const deleteProfileCtrl =asyncHandler(async(req,res)=>{
           }
           post.save();
      }
-
+     //remove his access token in case its his profile 
+     if(req.params.id == req.user.id)    
+          res.clearCookie('accessT', {
+          httpOnly: true,
+          secure: process.env.node_env === 'production',
+          sameSite: 'strict'
+        });
+        
      res.status(200).json({message : "user deleted successfully"})
 
 }

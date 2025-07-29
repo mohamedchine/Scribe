@@ -54,7 +54,7 @@ const loginctrl = asyncHandler(async(req,res)=>{
       httpOnly: true, 
       secure: process.env.node_env == 'production', 
       sameSite: 'strict', 
-      maxAge: 15 * 60 * 1000
+      maxAge: 7*24 * 60 * 1000*60
   });
   
 //   res.cookie('refreshT', refreshToken, {
