@@ -110,7 +110,7 @@ const deleteProfileCtrl =asyncHandler(async(req,res)=>{
      await postMdl.deleteMany({author : usertodelete._id});
      await commentMdl.deleteMany({authorid : usertodelete._id});
      
-     //delete his likes at otherposts
+     //delete his likes from otherposts
      const allposts = await postMdl.find() ;
      for(let post of allposts){
           if(post.likes.includes(usertodelete._id)){

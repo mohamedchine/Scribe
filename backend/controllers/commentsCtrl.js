@@ -41,7 +41,7 @@ const deleteCommentCtrl =asyncHandler( async(req,res)=>{
         return res.status(403).json({message:"u can't delete somoene elses comment"});
     }
     await comment.deleteOne();
-    return res.status(200).json({message :"comment deleted sc"}) ;
+    return res.status(200).json({message :"comment deleted successfuly"}) ;
 }
 )
 

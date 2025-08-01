@@ -1,0 +1,23 @@
+/* intro.css */
+.intro-screen {
+  height: 100vh;
+  background-color: #1f2937;
+  color: #e5e7eb;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 32px;
+  font-family: Arial, sans-serif;
+  opacity: 1;
+  transition: opacity 1s ease;
+  z-index: 100;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+.intro-screen.fade-out {
+  opacity: 0;
+  pointer-events: none;
+}

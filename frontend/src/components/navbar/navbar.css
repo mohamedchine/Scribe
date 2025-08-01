@@ -1,140 +1,143 @@
-a{
-    all:unset;
+a {
+    all: unset;
 }
+
 .navbar {
     padding: 10px 50px;
-    background-color: gainsboro;
+    background-color: #1f2937; /* dark slate */
     display: flex;
-    justify-content: center; 
+    justify-content: center;
     align-items: center;
     position: fixed;
     left: 0px;
     right: 0px;
-    top:0;
+    top: 0;
     font-family: Arial, Helvetica, sans-serif;
     font-weight: 400;
-    color:rgb(140 140 140);
-    gap:20px;
+    color: #e5e7eb; /* light gray text */
+    gap: 20px;
     font-size: 20px;
     height: 70px;
-    z-index:99;
+    z-index: 99;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* subtle shadow */
 }
 
 .navbar-leftside {
     display: flex;
-    margin-right: 10px; 
+    margin-right: 10px;
     font-size: 30px;
-    font-weight:bold;
-    color: rgb(112, 109, 109);
-    height:100%;
+    font-weight: bold;
+    color: #60a5fa; /* blue-gray accent */
+    height: 100%;
     font-style: italic;
 }
 
-.navbar-middle {
+.navbar-leftside .app-name {
+    text-decoration: underline;
+}
 
+.navbar-middle {
     display: flex;
     flex: 1;
-    justify-content: space-evenly; 
+    justify-content: space-evenly;
     font-size: 15px;
-    height:100%;
-    
+    height: 100%;
     align-items: center;
 }
 
 .navbar-right {
-
     display: flex;
-    gap:20px;
-   
+    gap: 20px;
     font-size: 15px;
 }
-.navbar-leftside .app-name{
-    text-decoration: underline;
-    font-family:Arial, Helvetica, sans-serif; 
-}
-.navbar-middle div{
+
+.navbar-middle div,
+.navbar-right div,
+.navbar-leftside div {
     display: flex;
     gap: 5px;
-  
     align-items: center;
 }
-.navbar-right div{
-    display: flex;
-    gap: 6px;
-    align-items: center;
-}
-.navbar-leftside div{
-    display: flex;
-    align-items: center;
-}
-.navbar-leftside .menu-icon{
+
+.navbar-leftside .menu-icon {
     display: none;
 }
-.navbar-right .login,.navbar-right .register{
-    border: 1px solid rgb(112, 109, 109);
+
+.navbar-right .login,
+.navbar-right .register {
+    border: 1px solid #3b82f6;
     border-radius: 15px;
     padding: 10px 5px;
-    
-}
-.navbar-middle .x:hover ,.navbar-right .login:hover , .navbar-right .register:hover{
-    color:aliceblue;
-    cursor:pointer;
-}
-.navbar-right .login:hover,.navbar-right .register:hover{
-    background-color:  rgb(112, 109, 109); 
-    color:aliceblue;
+    background-color: transparent;
+    color: #3b82f6;
+    transition: all 0.3s ease;
 }
 
-@media(max-width : 800px){
-    .navbar-leftside .menu-icon{
+.navbar-middle .x:hover,
+.navbar-right .login:hover,
+.navbar-right .register:hover {
+    color: #60a5fa;
+    cursor: pointer;
+}
+
+.navbar-right .login:hover,
+.navbar-right .register:hover {
+    background-color: #1d4ed8;
+    color: #ffffff;
+}
+
+/* Responsive Styles */
+@media (max-width: 800px) {
+    .navbar-leftside .menu-icon {
         display: flex;
         margin-right: 20px;
-     
         justify-content: center;
         align-items: center;
+        cursor: pointer;
     }
-    .navbar-middle{
-        all: unset;   /*   reset all old stuff */
-        position:absolute ; 
+
+    .navbar-middle {
+        all: unset;
+        position: absolute;
         display: flex;
-        flex-direction:column ;
-        left: 0px; 
-        right: 0px;  
-        top: 100%; /*make it under the navbar */
+        flex-direction: column;
+        left: 0px;
+        right: 0px;
+        top: 100%;
         clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
         gap: 10px;
-       background-color: rgb(102, 102, 102);
-       color: #b1b1b1;
-
+        background-color: #374151; /* darker gray for mobile */
+        color: #e5e7eb;
     }
-    .navbar-middle .x{
-        
+
+    .navbar-middle .x {
         padding: 5px 15px;
         width: 100%;
-
     }
 
-    .navbar{
+    .navbar {
         justify-content: space-between;
         padding: 5px 10px;
         gap: 5px;
     }
-    .navbar-leftside{
-        align-items: center; /*   jst bcs the menuicon didnt has the center at first  */
+
+    .navbar-leftside {
+        align-items: center;
         padding: 0px;
         margin: 0px;
         gap: 3px;
         font-size: 22px;
         justify-content: center;
     }
-    .navbar-right{
+
+    .navbar-right {
         margin: 0px;
         padding: 0px;
         gap: 3px;
         font-size: 13px;
     }
-    .navbar-leftside .menu-icon{
+
+    .navbar-leftside .menu-icon {
         margin-right: 0px;
-        cursor: pointer;
     }
 }
