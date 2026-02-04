@@ -1,0 +1,85 @@
+.update-comment {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-6);
+}
+
+.update-comment-form,
+.update-comment .update-post-form {
+  width: 100%;
+  max-width: 560px;
+  padding: var(--space-8);
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-modal);
+  position: relative;
+}
+
+.update-comment-form-close {
+  position: absolute;
+  top: var(--space-6);
+  right: var(--space-6);
+  color: var(--text-muted);
+  cursor: pointer;
+  font-size: var(--text-6xl);
+  padding: var(--space-1);
+  transition: color var(--transition);
+}
+
+.update-comment-form-close:hover {
+  color: var(--danger);
+}
+
+.update-comment-title {
+  margin-bottom: var(--space-6);
+  font-size: var(--text-3xl);
+  font-weight: 600;
+  color: var(--text-primary);
+  text-align: center;
+}
+
+.update-comment-input {
+  width: 100%;
+  padding: var(--space-5) var(--space-6);
+  margin: var(--space-3) 0;
+  font-size: var(--text-lg);
+  color: var(--text-primary);
+  background: var(--bg-input);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+}
+
+.update-comment-input:focus {
+  border-color: var(--accent);
+}
+
+.update-comment-btn {
+  width: 100%;
+  padding: var(--space-4) var(--space-6);
+  margin-top: var(--space-6);
+  font-size: var(--text-lg);
+  font-weight: 600;
+  color: var(--text-primary);
+  background: var(--accent);
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: background var(--transition);
+}
+
+.update-comment-btn:hover {
+  background: var(--accent-hover);
+}
+
+@media (max-width: 820px) {
+  .update-comment-form,
+  .update-comment .update-post-form {
+    max-width: 100%;
+  }
+}

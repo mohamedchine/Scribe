@@ -1,0 +1,204 @@
+.header {
+  width: 100%;
+  height: var(--header-height);
+  padding: 0 var(--container-padding);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--bg-elevated);
+  border-bottom: 1px solid var(--border-subtle);
+  position: relative ;
+  z-index: 99;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: var(--space-6);
+}
+
+.header-logo {
+  font-size: var(--text-5xl);
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: var(--tracking-tight);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.header-logo i {
+  color: var(--accent);
+  font-size: var(--text-4xl);
+  font-style: normal;
+}
+
+.header-menu {
+  display: none;
+}
+
+.header-menu i {
+  font-size: var(--text-6xl);
+  color: var(--text-primary);
+  cursor: pointer;
+  padding: var(--space-1);
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: var(--space-5);
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.nav-link {
+  padding: var(--space-3) var(--space-4);
+  font-size: var(--text-md);
+  font-weight: 500;
+  color: var(--text-secondary);
+  border-radius: var(--radius-md);
+  transition: color var(--transition), background var(--transition);
+}
+
+.nav-link:hover {
+  color: var(--text-primary);
+  background: var(--bg-card);
+}
+
+.nav-link i {
+  margin-right: var(--space-2);
+  font-size: var(--text-xl);
+  opacity: 0.9;
+}
+
+.header-right-link {
+  padding: var(--space-3) var(--space-6);
+  font-size: var(--text-md);
+  font-weight: 500;
+  background: var(--bg-card);
+  color: var(--text-primary);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  transition: background var(--transition), border-color var(--transition);
+}
+
+.header-right-link:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--text-primary);
+}
+
+.header-right-link i {
+  margin-right: var(--space-2);
+}
+
+.header-right-user-info {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  position: relative;
+}
+
+.header-right-username {
+  font-size: var(--text-md);
+  font-weight: 500;
+  color: var(--text-primary);
+  text-transform: capitalize;
+  cursor: pointer;
+  max-width: 120px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.header-right-user-photo {
+  width: 36px;
+  height: 36px;
+  object-fit: cover;
+  border-radius: var(--radius-round);
+  border: 2px solid var(--border-subtle);
+}
+
+.header-right-dropdown {
+  position: absolute;
+  right: 0;
+  top: calc(100% + var(--space-3));
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: var(--space-3);
+  min-width: 160px;
+  box-shadow: var(--shadow-card);
+}
+
+.header-dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-4) var(--space-5);
+  font-size: var(--text-md);
+  font-weight: 500;
+  color: var(--text-primary);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: background var(--transition);
+}
+
+.header-dropdown-item:hover {
+  background: var(--bg-input);
+}
+
+@media (max-width: 990px) {
+  .header-left {
+    flex-direction: row-reverse;
+  }
+
+  .header-menu {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .navbar {
+    position: absolute;
+    left: 0;
+    top: 100%;
+    width: 100%;
+    background: var(--bg-elevated);
+    border-bottom: 1px solid var(--border-subtle);
+    transition: clip-path 0.3s ease;
+    clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+  }
+
+  .nav-links {
+    flex-direction: column;
+    align-items: stretch;
+    padding: var(--space-6) var(--container-padding);
+    gap: var(--space-1);
+  }
+
+  .nav-link {
+    padding: var(--space-5) var(--space-6);
+    margin: 0;
+  }
+}
+
+@media (max-width: 520px) {
+  .header {
+    padding: 0 var(--space-6);
+  }
+
+  .header-logo {
+    font-size: var(--text-2xl);
+  }
+
+  .header-right-link {
+    font-size: var(--text-base);
+    padding: var(--space-2) var(--space-5);
+  }
+}

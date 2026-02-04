@@ -1,0 +1,20 @@
+.posts-page {
+  display: flex;
+  align-items: flex-start;
+  padding: var(--container-padding);
+  gap: 0;
+  min-height: calc(100vh - 130px);
+}
+
+@media (max-width: 990px) {
+  .posts-page {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+@media (max-width: 520px) {
+  .posts-page {
+    padding: var(--space-6);
+  }
+}

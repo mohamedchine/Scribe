@@ -1,0 +1,46 @@
+.verfiy-email {
+  min-height: calc(100vh - 130px);
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: var(--space-9);
+  text-align: center;
+}
+
+.verify-email-icon {
+  font-size: var(--text-9xl);
+  color: var(--success);
+  margin-bottom: var(--space-6);
+}
+
+.verfiy-email-title {
+  font-size: var(--text-4xl);
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: var(--space-8);
+  max-width: 420px;
+  line-height: var(--leading-snug);
+}
+
+.verify-email-link {
+  display: inline-block;
+  padding: var(--space-5) var(--space-8);
+  font-size: var(--text-lg);
+  font-weight: 600;
+  color: var(--text-primary);
+  background: var(--accent);
+  border-radius: var(--radius-md);
+  transition: background var(--transition);
+}
+
+.verify-email-link:hover {
+  background: var(--accent-hover);
+}
+
+.verify-email-not-found {
+  font-size: var(--text-6xl);
+  font-weight: 600;
+  color: var(--danger);
+}

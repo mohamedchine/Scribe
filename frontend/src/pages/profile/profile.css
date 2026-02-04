@@ -1,0 +1,188 @@
+.profile {
+  padding: 0 0 var(--space-9);
+}
+
+.profile-loader {
+  min-height: calc(100vh - 130px);
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: var(--space-9) 0;
+}
+
+.profile-header {
+  width: 100%;
+  padding: var(--space-10) var(--container-padding);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background: var(--bg-elevated);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.profile-image-wrapper {
+  width: 120px;
+  height: 120px;
+  position: relative;
+  margin-bottom: var(--space-6);
+}
+
+.profile-image {
+  width: 100%;
+  height: 100%;
+  border-radius: var(--radius-round);
+  object-fit: cover;
+  border: 3px solid var(--border-subtle);
+}
+
+.upload-profile-photo-icon,
+.upload-profile-photo-btn {
+  position: absolute;
+  bottom: -4px;
+  right: -4px;
+  padding: var(--space-2) var(--space-3);
+  font-size: var(--text-xl);
+  font-weight: 600;
+  color: var(--text-primary);
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  z-index: 10;
+  transition: background var(--transition), border-color var(--transition);
+}
+
+.upload-profile-photo-icon {
+  border-radius: var(--radius-round);
+  font-size: var(--text-2xl);
+  padding: var(--space-2);
+}
+
+.upload-profile-photo-btn:hover,
+.upload-profile-photo-icon:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.upload-profile-photo-btn {
+  right: -70px;
+  border-radius: var(--radius-sm);
+  font-size: var(--text-sm);
+}
+
+.profile-username {
+  font-size: var(--text-6xl);
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: var(--space-3) 0;
+  letter-spacing: var(--tracking-tight);
+}
+
+.profile-bio {
+  font-size: var(--text-lg);
+  font-weight: 500;
+  color: var(--text-secondary);
+  margin: var(--space-3) 0;
+  max-width: 420px;
+  text-align: center;
+  line-height: var(--leading-snug);
+}
+
+.user-date-joined {
+  font-size: var(--text-md);
+  margin-top: var(--space-3);
+}
+
+.user-date-joined strong {
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.user-date-joined span {
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.profile-update-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-top: var(--space-7);
+  padding: var(--space-4) var(--space-7);
+  font-size: var(--text-md);
+  font-weight: 600;
+  color: var(--text-primary);
+  background: var(--accent);
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: background var(--transition);
+}
+
+.profile-update-btn:hover {
+  background: var(--accent-hover);
+}
+
+ .profile-posts-list {
+  max-width: 720px;
+  margin: var(--space-9) auto;
+  padding: 0 var(--container-padding);
+  
+}
+
+.profile-posts-list-title {
+  font-size: var(--text-5xl);
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: var(--space-7);
+  padding-bottom: var(--space-3);
+  border-bottom: 2px solid var(--accent);
+  letter-spacing: var(--tracking-tight);
+} 
+
+
+
+.delete-account-btn {
+  display: block;
+  margin: var(--space-8) auto var(--space-9);
+  padding: var(--space-4) var(--space-7);
+  font-size: var(--text-md);
+  font-weight: 500;
+  color: var(--danger);
+  background: transparent;
+  border: 1px solid var(--danger);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: background var(--transition), color var(--transition);
+}
+
+.delete-account-btn:hover {
+  background: var(--danger-muted);
+}
+
+@media (max-width: 990px) {
+  .profile-posts-list {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 520px) {
+  .profile {
+    padding: 0 0 var(--space-8);
+  }
+
+  .profile-header {
+    padding: var(--space-8) var(--space-6);
+  }
+
+  .profile-bio {
+    text-align: center;
+  }
+
+  .upload-profile-photo-btn {
+    right: -60px;
+    font-size: var(--text-xs);
+  }
+}

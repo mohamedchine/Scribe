@@ -1,0 +1,97 @@
+.create-post {
+  min-height: calc(100vh - 130px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: var(--space-9) var(--space-6);
+}
+
+.create-post-title {
+  font-size: var(--text-6xl);
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: var(--space-8);
+  letter-spacing: var(--tracking-tight);
+}
+
+.create-post-form {
+  width: 100%;
+  max-width: 560px;
+  padding: 2rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+}
+
+.create-post-input,
+.create-post-textarea,
+.create-post-upload {
+  width: 100%;
+  padding: var(--space-5) var(--space-6);
+  margin-bottom: var(--space-6);
+  font-size: var(--text-lg);
+  color: var(--text-primary);
+  background: var(--bg-input);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  transition: border-color var(--transition);
+}
+
+.create-post-input:focus,
+.create-post-textarea:focus {
+  border-color: var(--accent);
+}
+
+.create-post-textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.create-post-upload {
+  padding: 0.65rem;
+  cursor: pointer;
+  margin-bottom: 0;
+}
+
+.create-post-upload::file-selector-button {
+  margin-right: var(--space-5);
+  padding: var(--space-2) var(--space-4);
+  font-size: var(--text-base);
+  font-weight: 500;
+  color: var(--text-primary);
+  background: var(--accent);
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+
+.create-post-btn {
+  width: 100%;
+  padding: var(--space-4) var(--space-6);
+  margin-top: var(--space-3);
+  font-size: var(--text-lg);
+  font-weight: 600;
+  color: var(--text-primary);
+  background: var(--accent);
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: background var(--transition);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.create-post-btn:hover {
+  background: var(--accent-hover);
+}
+
+
+@media (max-width: 820px) {
+  .create-post-form {
+    max-width: 100%;
+    padding: var(--space-8);
+  }
+}

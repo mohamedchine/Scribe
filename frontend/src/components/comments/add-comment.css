@@ -1,0 +1,42 @@
+.add-comment {
+  margin: var(--space-8) 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.add-comment-input {
+  width: 100%;
+  padding: var(--space-5) var(--space-6);
+  font-size: var(--text-lg);
+  color: var(--text-primary);
+  background: var(--bg-input);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  transition: border-color var(--transition);
+}
+
+.add-comment-input::placeholder {
+  color: var(--text-muted);
+}
+
+.add-comment-input:focus {
+  border-color: var(--accent);
+}
+
+.add-comment-btn {
+  align-self: flex-start;
+  padding: var(--space-3) var(--space-7);
+  font-size: var(--text-md);
+  font-weight: 600;
+  color: var(--text-primary);
+  background: var(--accent);
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: background var(--transition);
+}
+
+.add-comment-btn:hover {
+  background: var(--accent-hover);
+}
