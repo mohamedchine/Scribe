@@ -58,14 +58,23 @@ export function useAuthActions() {
       toast.error(errorMessage);
     }
   };
-
+  const checkAuth = async () => {
+      try {
+        const { data } = await api.post("/api/auth/check");
+        setUser(data);
+      } catch (err) {
+       
+      } finally {
+        setLoading(prev=>{return {...prev,checkauth:false}});
+      }
+    };
  
 
   return {
     loginUser,
     logoutUser,
     registerUser,
-    verifyEmail,
+    verifyEmail,checkAuth
   };
 }
 
