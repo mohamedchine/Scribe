@@ -1,8 +1,11 @@
 import { create } from "zustand";
+import { toast } from "react-toastify";
+import api from "../../utils/api";
+import { useProfileStore } from "./profileStore";
 
 const usePostStore = create((set, get) => ({
-  
-    posts: [],
+  // states
+  posts: [],
   postsCount: null,
   postsCate: [],
   loading: false,
@@ -11,30 +14,184 @@ const usePostStore = create((set, get) => ({
   loadingpostimg: false,
   loadfetchingposts: false,
 
+  
 
-
-  setPosts: (posts) => set({ posts }),
-  setPostsCount: (count) => set({ postsCount: count }),
-  setPostsCate: (postsCate) => set({ postsCate }),
-  setLoading: (loading) => set({ loading }),
-  setIsPostCreated: (val) => set({ isPostCreated: val }),
-  setPost: (post) => set({ post }),
-  setloadingpostimage: (val) => set({ loadingpostimg: val }),
-  setloadfetchingposts: (val) => set({ loadfetchingposts: val }),
+  // local updates
   setLike: (likes) => {
     set((state) => ({ post: state.post ? { ...state.post, likes } : null }));
   },
-  deletePost: (postId) => {
+  removePostFromState: (postId) => {
     set((state) => ({ posts: state.posts.filter((p) => p._id !== postId) }));
   },
   addCommentToPost: (comment) => {
-    set((state) => ({ post: state.post ? { ...state.post, comments: [...state.post.comments, comment] } : null }));
+    set((state) => ({
+      post: state.post
+        ? { ...state.post, comments: [...state.post.comments, comment] }
+        : null,
+    }));
   },
   updateCommentPost: (updatedComment) => {
-    set((state) => ({ post: state.post ? { ...state.post, comments: state.post.comments.map((c) => c._id === updatedComment._id ? updatedComment : c) } : null }));
+    set((state) => ({
+      post: state.post
+        ? {
+            ...state.post,
+            comments: state.post.comments.map((c) =>
+              c._id === updatedComment._id ? updatedComment : c
+            ),
+          }
+        : null,
+    }));
+  },
+  deleteCommentFromPost: (commentId) => {
+    set((state) => ({
+      post: state.post
+        ? {
+            ...state.post,
+            comments: state.post.comments.filter((c) => c._id !== commentId),
+          }
+        : null,
+    }));
   },
 
+  // API actions
+  fetchPosts: async (pageNumber) => {
+    try {
+      set({ loadfetchingposts: true });
+      const { data } = await api.get(`/api/posts?pageNumber=${pageNumber}`);
+      set({ posts: data });
+    } catch (error) {
+      toast.error(error?.response?.data?.message || "Failed to fetch posts");
+    } finally {
+      set({ loadfetchingposts: false });
+    }
+  },
 
+  getPostsCount: async () => {
+    try {
+      const { data } = await api.get("/api/posts/count");
+      set({ postsCount: data });
+    } catch (error) {
+      toast.error(
+        error?.response?.data?.message || "Failed to fetch posts count"
+      );
+    }
+  },
+
+  fetchPostsBasedOnCategory: async (category) => {
+    try {
+      const { data } = await api.get(`/api/posts?category=${category}`);
+      set({ postsCate: data });
+    } catch (error) {
+      toast.error(
+        error?.response?.data?.message ||
+          "Failed to fetch posts based on this category"
+      );
+    }
+  },
+
+  createPost: async (newPost) => {
+    try {
+      set({ loading: true });
+      await api.post("/api/posts/createpost", newPost, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      set({ loading: false, isPostCreated: true });
+      setTimeout(() => set({ isPostCreated: false }), 2000);
+    } catch (error) {
+      toast.error(error?.response?.data?.message || "Failed to create post");
+      set({ loading: false });
+    }
+  },
+
+  fetchSinglePost: async (postId) => {
+    try {
+      const { data } = await api.get(`/api/posts/${postId}`);
+      set({ post: data });
+    } catch (error) {
+      toast.error(
+        error?.response?.data?.message || "Failed to fetch single post"
+      );
+    }
+  },
+
+  toggleLikePost: async (postId) => {
+    try {
+      const { data } = await api.put(`/api/posts/like/${postId}`);
+      get().setLike(data.likes);
+    } catch (error) {
+      toast.error(
+        error?.response?.data?.message || "Failed to toggle like post"
+      );
+    }
+  },
+
+  updatePostImage: async (newImage, postId) => {
+    try {
+      set({ loadingpostimg: true });
+      const { data } = await api.post(
+        `/api/posts/${postId}/update-image/`,
+        newImage
+      );
+      if (data.post) {
+        set((state) => ({
+          post: state.post ? { ...state.post, photo: data.post.photo } : null,
+        }));
+      }
+      toast.success("New post image uploaded successfully");
+    } catch (error) {
+      toast.error(
+        error?.response?.data?.message || "Failed to update post image"
+      );
+    } finally {
+      set({ loadingpostimg: false });
+    }
+  },
+
+  updatePost: async (newPost, postId) => {
+    try {
+      const { data } = await api.put(`/api/posts/${postId}`, newPost);
+      set({ post: data.newpost });
+      toast.success("Post updated successfully");
+    } catch (error) {
+      toast.error(error?.response?.data?.message || "Failed to update post");
+    }
+  },
+
+  deletePost: async (postId, ondone) => {
+    try {
+      const { data } = await api.delete(`/api/posts/${postId}`);
+      get().removePostFromState(data.postId);
+
+      const profile = useProfileStore.getState().profile;
+      if (profile && profile.posts) {
+        useProfileStore.setState((state) => ({
+          profile: {
+            ...state.profile,
+            posts: state.profile.posts.filter((p) => p._id !== postId),
+          },
+        }));
+      }
+
+      toast.success("Post has been deleted successfully", {
+        autoClose: 800,
+        onClose: ondone,
+      });
+    } catch (error) {
+      toast.error(error?.response?.data?.message || "Failed to delete post");
+    }
+  },
+
+  getAllPosts: async () => {
+    try {
+      const { data } = await api.get("/api/posts/");
+      set({ posts: data });
+    } catch (error) {
+      toast.error(error?.response?.data?.message || "Failed to get all posts");
+    }
+  },
 }));
 
 export { usePostStore };
