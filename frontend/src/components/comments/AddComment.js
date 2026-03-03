@@ -1,12 +1,12 @@
 import "./add-comment.css";
 import { useState } from "react";
 import { toast } from "react-toastify";
-import { useAuth } from "../../contexts&apicalls/contexts/authContext";
-import { useCommentApi } from "../../contexts&apicalls/apiCalls/commentApiCall";
+import { useAuthStore } from "../../stores&apicalls/authStore";
+import { useCommentStore } from "../../stores&apicalls/commentStore";
 
 const AddComment = ({ postId }) => {
-  const { user } = useAuth(); 
-  const { createComment } = useCommentApi(user);
+ 
+  const createComment = useCommentStore((state) => state.createComment);
 
   const [text, setText] = useState("");
 

@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom";
 import {
   useGetResetPassword,
   useResetPassword,
-} from "../../contexts&apicalls/apiCalls/passwordApiCall";
+} from "../../stores&apicalls/passwordApiCall";
 import { Oval } from "react-loader-spinner";
 
 const ResetPassword = () => {

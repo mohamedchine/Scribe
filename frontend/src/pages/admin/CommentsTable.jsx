@@ -3,12 +3,12 @@ import "./admin-table.css";
 import swal from "sweetalert";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { useComment } from "../../contexts&apicalls/contexts/commentContext";
-import { useCommentApi } from "../../contexts&apicalls/apiCalls/commentApiCall";
+import { useCommentStore } from "../../stores&apicalls/commentStore";
 
 const CommentsTable = () => {
-  const { comments } = useComment();
-  const { fetchAllComments, deleteComment } = useCommentApi();
+  const comments = useCommentStore((state) => state.comments);
+  const fetchAllComments = useCommentStore((state) => state.fetchAllComments);
+  const deleteComment = useCommentStore((state) => state.deleteComment);
 
   useEffect(() => {
     fetchAllComments();

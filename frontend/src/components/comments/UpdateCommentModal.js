@@ -1,13 +1,12 @@
 import { useState } from "react";
 import "./update-comment.css";
 import { toast } from "react-toastify";
-import { useCommentApi } from "../../contexts&apicalls/apiCalls/commentApiCall";
-import { useAuth } from "../../contexts&apicalls/contexts/authContext";
+import { useCommentStore } from "../../stores&apicalls/commentStore";
 
 
 const UpdateCommentModal = ({ setUpdateComment, commentForUpdate }) => {
-  const { user } = useAuth(); 
-  const { updateComment } = useCommentApi(user);
+ 
+  const updateComment = useCommentStore((state) => state.updateComment);
 
   const [text, setText] = useState(commentForUpdate?.value);
 

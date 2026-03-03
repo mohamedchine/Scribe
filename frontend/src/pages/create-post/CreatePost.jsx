@@ -2,18 +2,17 @@ import { useState, useEffect } from "react";
 import "./create-post.css";
 import { useNavigate } from "react-router-dom";
 import { Oval} from "react-loader-spinner";
-import { usePost } from "../../contexts&apicalls/contexts/postContext";
-import { useCategory } from "../../contexts&apicalls/contexts/categoryContext";
-import { usePostApi } from "../../contexts&apicalls/apiCalls/postApiCall";
-import { useFetchCategories } from "../../contexts&apicalls/apiCalls/categoryApiCall";
+import { usePostStore } from "../../stores&apicalls/postStore";
+import { useCategoryStore } from "../../stores&apicalls/categoryStore";
 
 
 const CreatePost = () => {
   
-  const { loading, isPostCreated } = usePost();
-  const { categories } = useCategory();
-  const { createPost } = usePostApi();
-  const fetchCategories = useFetchCategories();
+  const loading = usePostStore((state) => state.loading);
+  const isPostCreated = usePostStore((state) => state.isPostCreated);
+  const createPost = usePostStore((state) => state.createPost);
+  const categories = useCategoryStore((state) => state.categories);
+  const fetchCategories = useCategoryStore((state) => state.fetchCategories);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
@@ -37,11 +36,11 @@ const CreatePost = () => {
     if (isPostCreated) {
       navigate("/");
     }
-  }, [isPostCreated]);
+  }, [isPostCreated, navigate]);
 
   useEffect(() => {
     fetchCategories();
-  }, []);
+  }, [fetchCategories]);
 
   return (
     <section className="create-post">

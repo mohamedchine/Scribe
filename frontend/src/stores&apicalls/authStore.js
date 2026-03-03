@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { toast } from "react-toastify";
-import api from "../../utils/api";
-import { getRecaptchaToken } from "../../utils/recaptcha";
+import api from "../utils/api";
+import { getRecaptchaToken } from "../utils/recaptcha";
 
 const useAuthStore = create((set, get) => ({
   // states

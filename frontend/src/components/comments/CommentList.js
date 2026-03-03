@@ -4,12 +4,12 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import UpdateCommentModal from "./UpdateCommentModal";
 import Moment from "react-moment";
-import { useCommentApi } from "../../contexts&apicalls/apiCalls/commentApiCall";
-import { useAuth } from "../../contexts&apicalls/contexts/authContext";
+import { useCommentStore } from "../../stores&apicalls/commentStore";
+import { useAuthStore } from "../../stores&apicalls/authStore";
 
 const CommentList = ({ comments }) => {
-  const { user } = useAuth();
-  const { deleteComment } = useCommentApi(user);
+  const user = useAuthStore((state) => state.user);
+  const deleteComment = useCommentStore((state) => state.deleteComment);
 
   const [updateComment, setUpdateComment] = useState(false);
   const [commentForUpdate, setCommentForUpdate] = useState(null);

@@ -5,23 +5,20 @@ import AddComment from "../../components/comments/AddComment";
 import CommentList from "../../components/comments/CommentList";
 import swal from "sweetalert";
 import UpdatePostModal from "./UpdatePostModal";
-import { useAuth } from "../../contexts&apicalls/contexts/authContext";
-import { usePost } from "../../contexts&apicalls/contexts/postContext";
-import { usePostApi } from "../../contexts&apicalls/apiCalls/postApiCall";
+import { useAuthStore } from "../../stores&apicalls/authStore";
+import { usePostStore } from "../../stores&apicalls/postStore";
 
 const PostDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const { user } = useAuth();
-
-  const { post,loadingpostimg } = usePost();
-  const {
-    fetchSinglePost,
-    deletePost,
-    toggleLikePost,
-    updatePostImage,
-  } = usePostApi();
+  const user = useAuthStore((state) => state.user);
+  const post = usePostStore((state) => state.post);
+  const loadingpostimg = usePostStore((state) => state.loadingpostimg);
+  const fetchSinglePost = usePostStore((state) => state.fetchSinglePost);
+  const deletePost = usePostStore((state) => state.deletePost);
+  const toggleLikePost = usePostStore((state) => state.toggleLikePost);
+  const updatePostImage = usePostStore((state) => state.updatePostImage);
 
   const [file, setFile] = useState(null);
   const [updatePost, setUpdatePost] = useState(false);
@@ -29,7 +26,7 @@ const PostDetails = () => {
   useEffect(() => {
     fetchSinglePost(id);
     window.scrollTo(0, 0);
-  }, [id]);
+  }, [id, fetchSinglePost]);
 
   const updateImageSubmitHandler = async (e) => {
     e.preventDefault();

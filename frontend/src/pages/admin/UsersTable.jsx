@@ -3,16 +3,17 @@ import "./admin-table.css";
 import { Link } from "react-router-dom";
 import swal from "sweetalert";
 import { useEffect } from "react";
-import { useProfile } from "../../contexts&apicalls/contexts/profileContext";
-import useProfileActions from "../../contexts&apicalls/apiCalls/profileApiCall";
+import { useProfileStore } from "../../stores&apicalls/profileStore";
 
 const UsersTable = () => {
-  const { profiles, isProfileDeleted } = useProfile();
-  const { getAllUsersProfile, deleteProfile } = useProfileActions();
+  const profiles = useProfileStore((state) => state.profiles);
+  const isProfileDeleted = useProfileStore((state) => state.isProfileDeleted);
+  const getAllUsersProfile = useProfileStore((state) => state.getAllUsersProfile);
+  const deleteProfile = useProfileStore((state) => state.deleteProfile);
 
   useEffect(() => {
     getAllUsersProfile();
-  }, [isProfileDeleted]);
+  }, [isProfileDeleted, getAllUsersProfile]);
 
   // Delete User Handler
   const deleteUserHandler = (userId) => {

@@ -20,14 +20,19 @@ import ResetPassword from "./pages/forms/ResetPassword";
 import NotFound from "./pages/not-found/NotFound";
 
 import VerifyEmail from "./pages/verify-email/VerifyEmail";
-import { useAuth } from "./contexts&apicalls/contexts/authContext";
 import { Oval } from "react-loader-spinner";
+import { useAuthStore } from "./stores&apicalls/authStore";
+import { useEffect } from "react";
 
 function App() {
-  const { user, loading } = useAuth();
-
+  const checkauthloading = useAuthStore((state) => state.loading.checkAuth);
+  const user = useAuthStore((state) => state.user);
+  const checkAuth = useAuthStore((state) => state.checkAuth);
+  useEffect(()=>{
+    checkAuth();
+  },[])
   // wait for auth check to complete before rendering routes
-  if (loading.checkauth) {
+  if (checkauthloading) {
     return (
       <div style={{ 
         display: 'flex', 

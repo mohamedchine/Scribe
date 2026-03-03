@@ -1,33 +1,28 @@
 import { Link } from "react-router-dom";
 import AddCategoryForm from "./AddCategoryForm";
 import { useEffect } from "react";
-import { useCategory } from "../../contexts&apicalls/contexts/categoryContext";
-import { useProfile } from "../../contexts&apicalls/contexts/profileContext";
-import { usePost } from "../../contexts&apicalls/contexts/postContext";
-import { useComment } from "../../contexts&apicalls/contexts/commentContext";
-import { useFetchCategories } from "../../contexts&apicalls/apiCalls/categoryApiCall";
-import useProfileActions from "../../contexts&apicalls/apiCalls/profileApiCall";
-import { usePostApi } from "../../contexts&apicalls/apiCalls/postApiCall";
-import { useCommentApi } from "../../contexts&apicalls/apiCalls/commentApiCall";
-import { useAuth } from "../../contexts&apicalls/contexts/authContext";
+import { useCategoryStore } from "../../stores&apicalls/categoryStore";
+import { useProfileStore } from "../../stores&apicalls/profileStore";
+import { usePostStore } from "../../stores&apicalls/postStore";
+import { useCommentStore } from "../../stores&apicalls/commentStore";
+
 
 const AdminMain = () => {
-    const { user } = useAuth();
-    const { categories } = useCategory();
-    const { usersCount } = useProfile();
-    const { postsCount } = usePost();
-    const { comments } = useComment();
-    const fetchCategories = useFetchCategories();
-    const { getUsersCount } = useProfileActions();
-    const { getPostsCount } = usePostApi();
-    const { fetchAllComments } = useCommentApi(user);
+    const categories = useCategoryStore((state) => state.categories);
+    const usersCount = useProfileStore((state) => state.usersCount);
+    const postsCount = usePostStore((state) => state.postsCount);
+    const comments = useCommentStore((state) => state.comments);
+    const fetchCategories = useCategoryStore((state) => state.fetchCategories);
+    const getUsersCount = useProfileStore((state) => state.getUsersCount);
+    const getPostsCount = usePostStore((state) => state.getPostsCount);
+    const fetchAllComments = useCommentStore((state) => state.fetchAllComments);
 
     useEffect(() => {
      fetchCategories();
      getUsersCount();
      getPostsCount();
      fetchAllComments();
-    }, []);
+    }, [fetchCategories, getUsersCount, getPostsCount, fetchAllComments]);
 
     return ( 
         <div className="amdin-main">

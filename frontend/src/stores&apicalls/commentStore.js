@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { toast } from "react-toastify";
-import api from "../../utils/api";
+import api from "../utils/api";
 import { usePostStore } from "./postStore";
 
 const useCommentStore = create((set, get) => ({
@@ -23,7 +23,9 @@ const useCommentStore = create((set, get) => ({
       const { data } = await api.post("/api/comments", newComment);
 
       set((state) => ({ comments: [...state.comments, data] }));
-      usePostStore.getState().addCommentToPost(data);
+    
+      const addCommentToPost = usePostStore.getState().addCommentToPost;
+      addCommentToPost(data);
     } catch (error) {
       toast.error(error?.response?.data?.message || "Failed to create comment");
     } finally {
@@ -41,7 +43,9 @@ const useCommentStore = create((set, get) => ({
       set((state) => ({
         comments: state.comments.map((c) => (c._id === data._id ? data : c)),
       }));
-      usePostStore.getState().updateCommentPost(data);
+    
+      const updateCommentPost = usePostStore.getState().updateCommentPost;
+      updateCommentPost(data);
     } catch (error) {
       toast.error(error?.response?.data?.message || "Failed to update comment");
     } finally {
@@ -59,7 +63,9 @@ const useCommentStore = create((set, get) => ({
       set((state) => ({
         comments: state.comments.filter((c) => c._id !== commentId),
       }));
-      usePostStore.getState().deleteCommentFromPost(commentId);
+      
+      const deleteCommentFromPost = usePostStore.getState().deleteCommentFromPost;
+      deleteCommentFromPost(commentId);
     } catch (error) {
       toast.error(error?.response?.data?.message || "Failed to delete comment");
     } finally {

@@ -2,14 +2,13 @@ import AdminSidebar from "./AdminSidebar";
 import "./admin-table.css";
 import swal from "sweetalert";
 import { useEffect } from "react";
-import { useCategory } from "../../contexts&apicalls/contexts/categoryContext";
-import { useFetchCategories, useDeleteCategory } from "../../contexts&apicalls/apiCalls/categoryApiCall";
+import { useCategoryStore } from "../../stores&apicalls/categoryStore";
 import { Link } from "react-router-dom/dist/umd/react-router-dom.development";
 
 const CategoriesTable = () => {
-  const { categories } = useCategory();
-  const fetchCategories = useFetchCategories();
-  const deleteCategory = useDeleteCategory();
+  const categories = useCategoryStore((state) => state.categories);
+  const fetchCategories = useCategoryStore((state) => state.fetchCategories);
+  const deleteCategory = useCategoryStore((state) => state.deleteCategory);
 
   useEffect(() => {
     fetchCategories();

@@ -1,18 +1,16 @@
 import { Link } from "react-router-dom";
 import "./sidebar.css";
 import { useEffect } from "react";
-import { useCategory } from "../../contexts&apicalls/contexts/categoryContext";
-import { useFetchCategories } from "../../contexts&apicalls/apiCalls/categoryApiCall";
+import { useCategoryStore } from "../../stores&apicalls/categoryStore";
 
 
 const Sidebar = () => {
-  const { categories } = useCategory();
-  const fetchCategories = useFetchCategories();
+  const categories = useCategoryStore((state) => state.categories);
+  const fetchCategories = useCategoryStore((state) => state.fetchCategories);
 
   useEffect(() => {
     fetchCategories();
-
-  }, []);
+  }, [fetchCategories]);
 
   return (
     <div className="sidebar">

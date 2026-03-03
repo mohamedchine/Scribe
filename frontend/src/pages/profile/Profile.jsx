@@ -6,17 +6,19 @@ import swal from "sweetalert";
 import UpdateProfileModal from "./UpdateProfileModal";
 import PostItem from "../../components/posts/PostItem";
 import { Oval } from "react-loader-spinner";
-import { useProfile } from "../../contexts&apicalls/contexts/profileContext";
-import { useAuth } from "../../contexts&apicalls/contexts/authContext";
-import useProfileActions from "../../contexts&apicalls/apiCalls/profileApiCall";
-import { useAuthActions } from "../../contexts&apicalls/apiCalls/authApiCall";
+import { useProfileStore } from "../../stores&apicalls/profileStore";
+import { useAuthStore } from "../../stores&apicalls/authStore";
 
 const Profile = () => {
-  const { profile,loading,isProfileDeleted } = useProfile();
+  const profile = useProfileStore((state) => state.profile);
+  const loading = useProfileStore((state) => state.loading);
+  const isProfileDeleted = useProfileStore((state) => state.isProfileDeleted);
+  const getUserProfile = useProfileStore((state) => state.getUserProfile);
+  const uploadProfilePhoto = useProfileStore((state) => state.uploadProfilePhoto);
+  const deleteProfile = useProfileStore((state) => state.deleteProfile);
   
-  const { user } = useAuth();
-  const { getUserProfile, uploadProfilePhoto, deleteProfile } = useProfileActions();
-  const { logoutUser } = useAuthActions();
+  const user = useAuthStore((state) => state.user);
+  const logoutUser = useAuthStore((state) => state.logoutUser);
 
   const [file, setFile] = useState(null);
   const [updateProfile, setUpdateProfile] = useState(false);
@@ -26,14 +28,14 @@ const Profile = () => {
   useEffect(() => {
     getUserProfile(id);
     window.scrollTo(0, 0);
-  }, [id]);
+  }, [id, getUserProfile]);
 
   const navigate = useNavigate();
   useEffect(() => {
     if(isProfileDeleted) {
       navigate("/");
     }
-  }, [isProfileDeleted]);
+  }, [isProfileDeleted, navigate]);
 
   // Form Submit Handler
   const formSubmitHandler = async (e) => {

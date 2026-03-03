@@ -3,18 +3,18 @@ import "./admin-table.css";
 import { Link } from "react-router-dom";
 import swal from "sweetalert";
 import { useEffect } from "react";
-import { usePost } from "../../contexts&apicalls/contexts/postContext";
-import { usePostApi } from "../../contexts&apicalls/apiCalls/postApiCall";
+import { usePostStore } from "../../stores&apicalls/postStore";
 
 
 const PostsTable = () => {
    
-    const { posts } = usePost();
-    const { getAllPosts, deletePost } = usePostApi();
+    const posts = usePostStore((state) => state.posts);
+    const getAllPosts = usePostStore((state) => state.getAllPosts);
+    const deletePost = usePostStore((state) => state.deletePost);
 
     useEffect(() => {
      getAllPosts();
-    }, []);
+    }, [getAllPosts]);
 
   // Delete Post Handler
   const deletePostHandler = (postId) => {

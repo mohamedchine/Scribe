@@ -1,12 +1,11 @@
 import { useState } from "react";
 import "./update-profile.css";
-import useProfileActions from "../../contexts&apicalls/apiCalls/profileApiCall";
-import { useProfile } from "../../contexts&apicalls/contexts/profileContext";
+import { useProfileStore } from "../../stores&apicalls/profileStore";
 
 const UpdateProfileModal = ( { setUpdateProfile, profile } ) => {
    
-    const { loading } = useProfile();
-    const { updateProfile } = useProfileActions();
+    const loading = useProfileStore((state) => state.loading);
+    const updateProfile = useProfileStore((state) => state.updateProfile);
 
     const [name, setName] = useState(profile.name);
     const [lastname, setLastname] = useState(profile.lastname);

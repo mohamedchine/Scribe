@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import "./form.css";
-import { useForgotPassword } from "../../contexts&apicalls/apiCalls/passwordApiCall";
+import { useForgotPassword } from "../../stores&apicalls/passwordApiCall";
 import { Oval } from "react-loader-spinner";
 
 const FrogotPassword = () => {

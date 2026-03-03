@@ -1,11 +1,10 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import { useAuth } from "../../contexts&apicalls/contexts/authContext";
-import { useAuthActions } from "../../contexts&apicalls/apiCalls/authApiCall";
+import { useAuthStore } from "../../stores&apicalls/authStore";
 
 const HeaderRight = () => {
-  const { user } = useAuth();
-  const { logoutUser } = useAuthActions();
+  const user = useAuthStore((state) => state.user);
+  const logoutUser = useAuthStore((state) => state.logoutUser);
   const [dropdown, setDropdown] = useState(false);
 
   // Logout Handler

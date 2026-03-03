@@ -1,18 +1,17 @@
 import "./verify-email.css";
 import { Link,useParams } from "react-router-dom";
 import { useEffect } from "react";
-import { useAuth } from "../../contexts&apicalls/contexts/authContext";
-import { useAuthActions } from "../../contexts&apicalls/apiCalls/authApiCall";
+import { useAuthStore } from "../../stores&apicalls/authStore";
 
 const VerifyEmail = () => {
-  const { isEmailVerified } = useAuth();
-  const { verifyEmail } = useAuthActions();
+  const isEmailVerified = useAuthStore((state) => state.isEmailVerified);
+  const verifyEmail = useAuthStore((state) => state.verifyEmail);
 
   const { userId, token } = useParams();
 
   useEffect(() => {
     verifyEmail(userId, token);
-  }, [userId, token]);
+  }, [userId, token, verifyEmail]);
 
   return (
     <section className="verfiy-email">

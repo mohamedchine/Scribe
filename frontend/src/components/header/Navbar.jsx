@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
-import { useAuth } from "../../contexts&apicalls/contexts/authContext";
+import { useAuthStore } from "../../stores&apicalls/authStore";
 
 const Navbar = ({ toggle, setToggle }) => {
-  const { user } = useAuth();
+  const user = useAuthStore((state) => state.user);
 
   return (
     <nav

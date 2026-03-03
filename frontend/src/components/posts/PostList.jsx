@@ -1,9 +1,10 @@
-import { usePost } from "../../contexts&apicalls/contexts/postContext";
+import { usePostStore } from "../../stores&apicalls/postStore";
 import PostItem from "./PostItem";
 import "./posts.css";
 import { Oval } from "react-loader-spinner";
+
 const PostList = ({ posts }) => {
-    const {loadfetchingposts} = usePost();
+    const loadfetchingposts = usePostStore((state) => state.loadfetchingposts);
     if(loadfetchingposts){
         return(
             <div className="post-list post-list-loading">

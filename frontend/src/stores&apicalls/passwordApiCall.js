@@ -1,8 +1,8 @@
 import { toast } from "react-toastify";
-import api from "../../utils/api";
+import api from "../utils/api";
 
 import { useState } from "react";
-import { getRecaptchaToken } from "../../utils/recaptcha";
+import { getRecaptchaToken } from "../utils/recaptcha";
 // Forgot Password
 export const useForgotPassword = () => {
   const [loading, setLoading] = useState(false);

@@ -1,17 +1,15 @@
 import { useState, useEffect } from "react";
 import "./update-post.css";
 import { toast } from "react-toastify";
-import { useFetchCategories } from "../../contexts&apicalls/apiCalls/categoryApiCall";
-import { usePostApi } from "../../contexts&apicalls/apiCalls/postApiCall";
-import { useCategory } from "../../contexts&apicalls/contexts/categoryContext";
+import { useCategoryStore } from "../../stores&apicalls/categoryStore";
+import { usePostStore } from "../../stores&apicalls/postStore";
 
 
 const UpdatePostModal = ({ setUpdatePost, post }) => {
   
-  const { categories } = useCategory();
-  
-  const { updatePost } = usePostApi();
-  const fetchCategories = useFetchCategories();
+  const categories = useCategoryStore((state) => state.categories);
+  const fetchCategories = useCategoryStore((state) => state.fetchCategories);
+  const updatePost = usePostStore((state) => state.updatePost);
 
   const [title, setTitle] = useState(post.title);
   const [desc, setDesc] = useState(post.description);
@@ -30,7 +28,7 @@ const UpdatePostModal = ({ setUpdatePost, post }) => {
 //redundant but if somoene directly enters category page from url
   useEffect(() => {
     fetchCategories();
-  }, []);
+  }, [fetchCategories]);
 
   return (
     <div className="update-post">

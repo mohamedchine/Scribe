@@ -2,21 +2,21 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "./form.css";
-import { useAuthActions } from "../../contexts&apicalls/apiCalls/authApiCall";
+import { useAuthStore } from "../../stores&apicalls/authStore";
 import { Oval } from "react-loader-spinner";
-import { useAuth } from "../../contexts&apicalls/contexts/authContext";
+
 const Register = () => {
     useEffect(()=>{
         document.body.classList.add("show");
        return ()=>{document.body.classList.remove("show");}
       },[])
-    const {registerUser} = useAuthActions();
+    const registerUser = useAuthStore((state) => state.registerUser);
     const [name, setName] = useState("");
     const [lastname, setLastname] = useState("");
     
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-     const {loading} = useAuth();
+    const loading = useAuthStore((state) => state.loading);
     const navigate = useNavigate();
 
     

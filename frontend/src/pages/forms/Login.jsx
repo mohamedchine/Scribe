@@ -2,15 +2,14 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import "./form.css";
-import { useAuthActions } from "../../contexts&apicalls/apiCalls/authApiCall";
-import { useAuth } from "../../contexts&apicalls/contexts/authContext";
+import { useAuthStore } from "../../stores&apicalls/authStore";
 import { Oval } from "react-loader-spinner";
 
 const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const {loginUser} =useAuthActions();
-    const {loading} = useAuth();
+    const loginUser = useAuthStore((state) => state.loginUser);
+    const loading = useAuthStore((state) => state.loading);
   useEffect(()=>{
     document.body.classList.add("show");
    return ()=>{document.body.classList.remove("show");}

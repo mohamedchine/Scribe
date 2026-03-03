@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
-import { useCreateCategory } from "../../contexts&apicalls/apiCalls/categoryApiCall";
+import { useCategoryStore } from "../../stores&apicalls/categoryStore";
 
 const AddCategoryForm = () => {
-  const createCategory = useCreateCategory();
+  const createCategory = useCategoryStore((state) => state.createCategory);
   const [title, setTitle] = useState("");
 
   // Form Submit Handler

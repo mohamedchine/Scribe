@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { toast } from "react-toastify";
-import api from "../../utils/api";
+import api from "../utils/api";
 import { useAuthStore } from "./authStore";
 
 const useProfileStore = create((set, get) => ({

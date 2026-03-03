@@ -3,15 +3,16 @@ import PostList from "../../components/posts/PostList";
 import Sidebar from "../../components/sidebar/Sidebar";
 import Pagination from "../../components/pagination/Pagination";
 import { useEffect, useState } from "react";
-import { usePost } from "../../contexts&apicalls/contexts/postContext";
-import { usePostApi } from "../../contexts&apicalls/apiCalls/postApiCall";
+import { usePostStore } from "../../stores&apicalls/postStore";
 
 const POST_PER_PAGE = 3;
 
 const PostsPage = () => {
  
-  const { postsCount, posts } = usePost();
-  const { fetchPosts, getPostsCount } = usePostApi();
+  const postsCount = usePostStore((state) => state.postsCount);
+  const posts = usePostStore((state) => state.posts);
+  const fetchPosts = usePostStore((state) => state.fetchPosts);
+  const getPostsCount = usePostStore((state) => state.getPostsCount);
 
   const [currentPage, setCurrentPage] = useState(1);
   const pages = Math.ceil(postsCount / POST_PER_PAGE);
@@ -19,11 +20,11 @@ const PostsPage = () => {
   useEffect(() => {
     fetchPosts(currentPage);
     window.scrollTo(0, 0);
-  }, [currentPage]);
+  }, [currentPage, fetchPosts]);
 
   useEffect(() => {
     getPostsCount();
-  }, []);
+  }, [getPostsCount]);
 
   return (
     <>

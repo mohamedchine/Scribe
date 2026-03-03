@@ -3,18 +3,17 @@ import "./home.css";
 import Sidebar from "../../components/sidebar/Sidebar";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
-import { usePost } from "../../contexts&apicalls/contexts/postContext";
-import { usePostApi } from "../../contexts&apicalls/apiCalls/postApiCall";
+import { usePostStore } from "../../stores&apicalls/postStore";
 
 
 const Home = () => {
  
-  const { posts } = usePost();
-  const { fetchPosts } = usePostApi();
+  const posts = usePostStore((state) => state.posts);
+  const fetchPosts = usePostStore((state) => state.fetchPosts);
 
   useEffect(() => {
     fetchPosts(1);
-  }, []);
+  }, [fetchPosts]);
 
   return (
     <section className="home">
