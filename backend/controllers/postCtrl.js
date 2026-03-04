@@ -34,7 +34,7 @@ const getAllPostsCtrl =asyncHandler(async(req,res)=>{
     category  = category ? {category} : {};   //to find all if theres no category ;
     
     // If pageNumber is provided and valid, apply pagination; otherwise return all posts
-    let query = postMdl.find(category).populate('author' ,["-password" ,"-refreshtoken"]).sort({createdAt : -1});
+    let query = postMdl.find(category).select('_id title description category photo author createdAt').populate('author' ,["name","lastname","profilePic"]).sort({createdAt : -1});
     
     if(pageNumber && !isNaN(pageNumber) && parseInt(pageNumber) > 0){
         const skip = (parseInt(pageNumber) - 1) * postPerPage;
@@ -49,7 +49,7 @@ const getAllPostsCtrl =asyncHandler(async(req,res)=>{
 
 const getSinglePostCtrl = asyncHandler(async(req,res)=>{
     const id = req.params.id ; 
-    var post = await postMdl.findOne({_id : id}).populate('author',["-password" ,"-refreshtoken"]) ;
+    var post = await postMdl.findOne({_id : id}).populate('author',["profilePic","name","lastname"]) ;
     post = post.toObject(); //convert the mongoose object to a js object to accept the .
     const coments = await commentMdl.find({postid : id}).populate('author' ,["-password" ,"-refreshtoken","-email"]);
     post.comments = coments;

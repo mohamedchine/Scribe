@@ -75,9 +75,10 @@ const useProfileStore = create(
       const { data } = await api.put(`/api/users/profile/${userId}`, profileData);
       const updatedUser = data.updatedUser || data;
 
-      set({ profile: updatedUser });
+      set((state) => ({ 
+        profile: state.profile ? { ...state.profile, ...updatedUser } : updatedUser 
+          }));
       useAuthStore.setState({ user: updatedUser });
-      toast.success(data.message || "Profile updated successfully");
       return { success: true, data };
     } catch (error) {
       toast.error(error?.response?.data?.message || "Update failed.");

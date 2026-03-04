@@ -19,7 +19,7 @@ const PostDetails = () => {
   const deletePost = usePostStore((state) => state.deletePost);
   const toggleLikePost = usePostStore((state) => state.toggleLikePost);
   const updatePostImage = usePostStore((state) => state.updatePostImage);
-
+ const loadfetchingsinglepost = usePostStore((state) => state.loadfetchingsinglepost);
   const [file, setFile] = useState(null);
   const [updatePost, setUpdatePost] = useState(false);
 
@@ -51,8 +51,10 @@ const PostDetails = () => {
       }
     });
   };
-
-  return (
+  if(loadfetchingsinglepost){
+    return <div className="post-details-loading"></div>; 
+   }
+  else return (
     <section className="post-details">
       <div className="post-details-image-wrapper">
         <img

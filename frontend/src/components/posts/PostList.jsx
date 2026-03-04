@@ -8,12 +8,7 @@ const PostList = ({ posts }) => {
     if(loadfetchingposts){
         return(
             <div className="post-list post-list-loading">
-                <Oval
-                    height={50}
-                    width={50}
-                    color="blue"
-                    ariaLabel="loading"
-                />
+               
             </div>
         )
     }

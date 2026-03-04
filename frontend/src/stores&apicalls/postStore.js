@@ -16,6 +16,7 @@ const usePostStore = create(
   post: null,
   loadingpostimg: false,
   loadfetchingposts: false,
+  loadfetchingsinglepost:false ,
 
   
 
@@ -82,6 +83,7 @@ const usePostStore = create(
 
   fetchPostsBasedOnCategory: async (category) => {
     try {
+      set({ loadfetchingposts: true });
       const { data } = await api.get(`/api/posts?category=${category}`);
       set({ postsCate: data });
     } catch (error) {
@@ -89,6 +91,9 @@ const usePostStore = create(
         error?.response?.data?.message ||
           "Failed to fetch posts based on this category"
       );
+    }
+    finally{
+      set({ loadfetchingposts: false });
     }
   },
 
@@ -111,12 +116,15 @@ const usePostStore = create(
 
   fetchSinglePost: async (postId) => {
     try {
+      set({ loadfetchingsinglepost: true });
       const { data } = await api.get(`/api/posts/${postId}`);
       set({ post: data });
     } catch (error) {
       toast.error(
         error?.response?.data?.message || "Failed to fetch single post"
       );
+    } finally {
+      set({ loadfetchingsinglepost: false });
     }
   },
 

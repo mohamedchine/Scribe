@@ -103,6 +103,7 @@ body {
   background-color: var(--bg-base);
   color: var(--text-primary);
   overflow-x: hidden;
+  min-height: 100vh;
 }
 body.show .grecaptcha-badge {
   visibility: visible;
