@@ -7,7 +7,7 @@ const {
 const verifyrecaptcha = require("../middleware/verifyRecaptcha");
 
 
-passwordRoutes.post("/reset-password-link",verifyrecaptcha("forgot password"), sendResetPasswordLinkCtrl);
+passwordRoutes.post("/reset-password-link",verifyrecaptcha("forgot_password"), sendResetPasswordLinkCtrl);
 
 
 passwordRoutes

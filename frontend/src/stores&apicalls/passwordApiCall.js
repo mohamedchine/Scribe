@@ -7,12 +7,15 @@ import { getRecaptchaToken } from "../utils/recaptcha";
 export const useForgotPassword = () => {
   const [loading, setLoading] = useState(false);
   const forgotPassword = async (email) => {
+   
     try {
       setLoading(true);
-      const recaptchatoken = await getRecaptchaToken("forgot password");
+      const recaptchatoken = await getRecaptchaToken("forgot_password");
       const { data } = await api.post("/api/password/reset-password-link", { email, recaptchatoken });
+      
       toast.success(data.message);
     } catch (error) {
+      
       toast.error(error?.response?.data?.message || "Failed to send reset link");
     } finally {
         setLoading(false);

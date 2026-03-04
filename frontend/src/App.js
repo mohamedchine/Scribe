@@ -52,9 +52,11 @@ function App() {
 
   return (
     <BrowserRouter>
-      <ToastContainer  position="top-center" />
-      <Header />
-      <Routes>
+      <div className="app-root">
+        <ToastContainer  position="top-center" />
+        <Header />
+        <main className="app-content">
+          <Routes>
         <Route path="/" element={<Home />} />
         <Route
           path="/login"
@@ -68,8 +70,8 @@ function App() {
           path="/users/:userId/verify/:token"
           element={!user ? <VerifyEmail /> : <Navigate to="/" />}
         />
-        <Route path="/forgot-password" element={<FrogotPassword />} />
-        <Route path="/reset-password/:userId/:token" element={<ResetPassword />} />
+        <Route path="/forgot-password" element={!user ? <FrogotPassword /> : <Navigate to="/" />} />
+        <Route path="/reset-password/:userId/:token" element={!user ? <ResetPassword /> : <Navigate to="/" />} />
         <Route path="/profile/:id" element={<Profile />} />
         <Route path="posts">
           <Route index element={<PostsPage />} />
@@ -103,8 +105,10 @@ function App() {
           />
         </Route>
         <Route path="*" element={<NotFound />} />
-      </Routes>
-      <Footer />
+          </Routes>
+        </main>
+        <Footer />
+      </div>
     </BrowserRouter>
   );
 }

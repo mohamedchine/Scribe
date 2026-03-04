@@ -4,7 +4,7 @@ import "./form.css";
 import { useForgotPassword } from "../../stores&apicalls/passwordApiCall";
 import { Oval } from "react-loader-spinner";
 
-const FrogotPassword = () => {
+const ForgotPassword = () => {
     const {forgotPassword,loading} = useForgotPassword();
     
     const [email, setEmail] = useState("");
@@ -46,4 +46,4 @@ const FrogotPassword = () => {
      );
 }
  
-export default FrogotPassword;
+export default ForgotPassword;

@@ -12,7 +12,8 @@ const { validateNewPassword, validateEmail } = require("../utils/uservalidationU
  
 module.exports.sendResetPasswordLinkCtrl = asyncHandler(async (req,res) => {
    // 1. Validation
-   const { error } = validateEmail(req.body.email);
+  
+   const { error } = validateEmail(req.body);
    if(error) {
     return res.status(400).json({ message: error.details[0].message });
    }
@@ -32,6 +33,7 @@ module.exports.sendResetPasswordLinkCtrl = asyncHandler(async (req,res) => {
         token: crypto.randomBytes(32).toString("hex"),
     });
    }
+  
 
    // 4. Creating link
    const link = `${process.env.CLIENT_DOMAIN}/reset-password/${user._id}/${verificationToken.token}`;

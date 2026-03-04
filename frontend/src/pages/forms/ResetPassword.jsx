@@ -30,7 +30,19 @@ const ResetPassword = () => {
   };
 
   if(loadingv){
-    return <Oval color="blue" height={50} width={50} />
+    return    <div style={{ 
+        display: 'flex', 
+        justifyContent: 'center', 
+        alignItems: 'center', 
+        height: '100vh' 
+      }}>
+        <Oval
+          height={50}
+          width={50}
+          color="blue"
+          ariaLabel="loading"
+        />
+      </div>
   }
 
   return (
