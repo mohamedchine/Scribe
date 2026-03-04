@@ -9,6 +9,7 @@ const xss = require('xss-clean');
 const {globalLimiter} = require('./middleware/Limiter');
 
 
+
 const reftokenRoute = require('./routes/refTokenRoute') ; 
 const authRoutes = require('./routes/authRoutes');
 const usersRoutes = require('./routes/usersRoutes');
@@ -22,6 +23,7 @@ app.use(cors({
   origin: process.env.CLIENT_DOMAIN, // allow only this origin
   credentials: true,               // allow sending cookies (if needed)
 }));
+
 app.use(express.json());
 app.use(cookieparser()); 
 app.use(globalLimiter);

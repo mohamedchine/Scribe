@@ -9,6 +9,7 @@ const usePostStore = create(
     (set, get) => ({
   // states
   posts: [],
+  postsCache: {},
   postsCount: null,
   postsCate: [],
   loading: false,
@@ -60,9 +61,20 @@ const usePostStore = create(
   // API actions
   fetchPosts: async (pageNumber) => {
     try {
+      // return cached page if available
+      const cache = get().postsCache;
+      if (cache && cache[pageNumber]) {
+        set({ posts: cache[pageNumber] });
+        return;
+      }
+
       set({ loadfetchingposts: true });
       const { data } = await api.get(`/api/posts?pageNumber=${pageNumber}`);
-      set({ posts: data });
+      // store page in cache and update current posts
+      set((state) => ({
+        postsCache: { ...(state.postsCache || {}), [pageNumber]: data },
+        posts: data,
+      }));
     } catch (error) {
       toast.error(error?.response?.data?.message || "Failed to fetch posts");
     } finally {
@@ -106,7 +118,8 @@ const usePostStore = create(
         },
       });
 
-      set({ loading: false, isPostCreated: true });
+      // invalidate cache so new post appears on next fetch
+      set({ loading: false, isPostCreated: true, postsCache: {} });
       setTimeout(() => set({ isPostCreated: false }), 2000);
     } catch (error) {
       toast.error(error?.response?.data?.message || "Failed to create post");
@@ -174,6 +187,9 @@ const usePostStore = create(
     try {
       const { data } = await api.delete(`/api/posts/${postId}`);
       get().removePostFromState(data.postId);
+
+      // invalidate cache so deleted post is removed from cached pages
+      set({ postsCache: {} });
 
       const profile = useProfileStore.getState().profile;
       if (profile && profile.posts) {
