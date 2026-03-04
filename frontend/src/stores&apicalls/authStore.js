@@ -1,9 +1,12 @@
 import { create } from "zustand";
+import { devtools } from "zustand/middleware";
 import { toast } from "react-toastify";
 import api from "../utils/api";
 import { getRecaptchaToken } from "../utils/recaptcha";
 
-const useAuthStore = create((set, get) => ({
+const useAuthStore = create(
+  devtools(
+    (set, get) => ({
   // states
   user: null,
   isEmailVerified: false,
@@ -96,6 +99,9 @@ const useAuthStore = create((set, get) => ({
       user: { ...state.user, profilePic: pfp },
     }));
   },
-}));
+}),
+    { name: "AuthStore" }
+  )
+);
 
 export { useAuthStore };

@@ -1,9 +1,12 @@
 import { create } from "zustand";
+import { devtools } from "zustand/middleware";
 import { toast } from "react-toastify";
 import api from "../utils/api";
 import { usePostStore } from "./postStore";
 
-const useCommentStore = create((set, get) => ({
+const useCommentStore = create(
+  devtools(
+    (set, get) => ({
   // states
   comments: [],
   loading: {
@@ -86,6 +89,9 @@ const useCommentStore = create((set, get) => ({
       set((state) => ({ loading: { ...state.loading, fetch: false } }));
     }
   },
-}));
+}),
+    { name: "CommentStore" }
+  )
+);
 
 export { useCommentStore };

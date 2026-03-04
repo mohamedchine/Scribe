@@ -35,7 +35,8 @@ const verifyrecaptcha = (expectedAction, minScore = 0.5) => {
       if (data.score < minScore) {
         return res.status(403).json({ message: "Suspicious activity detected", score: data.score });
       }
-
+       const { recaptchatoken, ...userData } = req.body;
+       req.body = userData; 
       // All good → continue
       next();
     } catch (err) {

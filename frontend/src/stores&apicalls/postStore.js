@@ -1,9 +1,12 @@
 import { create } from "zustand";
+import { devtools } from "zustand/middleware";
 import { toast } from "react-toastify";
 import api from "../utils/api";
 import { useProfileStore } from "./profileStore";
 
-const usePostStore = create((set, get) => ({
+const usePostStore = create(
+  devtools(
+    (set, get) => ({
   // states
   posts: [],
   postsCount: null,
@@ -140,7 +143,7 @@ const usePostStore = create((set, get) => ({
           post: state.post ? { ...state.post, photo: data.post.photo } : null,
         }));
       }
-      toast.success("New post image uploaded successfully");
+      // toast.success("New post image uploaded successfully");
     } catch (error) {
       toast.error(
         error?.response?.data?.message || "Failed to update post image"
@@ -154,7 +157,6 @@ const usePostStore = create((set, get) => ({
     try {
       const { data } = await api.put(`/api/posts/${postId}`, newPost);
       set({ post: data.newpost });
-      toast.success("Post updated successfully");
     } catch (error) {
       toast.error(error?.response?.data?.message || "Failed to update post");
     }
@@ -192,6 +194,9 @@ const usePostStore = create((set, get) => ({
       toast.error(error?.response?.data?.message || "Failed to get all posts");
     }
   },
-}));
+}),
+    { name: "PostStore" }
+  )
+);
 
 export { usePostStore };

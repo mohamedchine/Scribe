@@ -1,9 +1,12 @@
 import { create } from "zustand";
+import { devtools } from "zustand/middleware";
 import { toast } from "react-toastify";
 import api from "../utils/api";
 import { useAuthStore } from "./authStore";
 
-const useProfileStore = create((set, get) => ({
+const useProfileStore = create(
+  devtools(
+    (set, get) => ({
   // states
   profile: null,
   loading: {
@@ -118,6 +121,9 @@ const useProfileStore = create((set, get) => ({
       toast.error(error?.response?.data?.message || "Failed to fetch profiles.");
     }
   },
-}));
+}),
+    { name: "ProfileStore" }
+  )
+);
 
 export { useProfileStore };

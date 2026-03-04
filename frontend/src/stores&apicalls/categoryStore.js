@@ -1,8 +1,11 @@
 import { create } from "zustand";
+import { devtools } from "zustand/middleware";
 import { toast } from "react-toastify";
 import api from "../utils/api";
 
-const useCategoryStore = create((set, get) => ({
+const useCategoryStore = create(
+  devtools(
+    (set, get) => ({
   // states
   categories: [],
   loading: {
@@ -80,6 +83,9 @@ const useCategoryStore = create((set, get) => ({
       );
     }
   },
-}));
+}),
+    { name: "CategoryStore" }
+  )
+);
 
 export { useCategoryStore };

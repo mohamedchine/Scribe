@@ -15,7 +15,7 @@ const registerctrl = asyncHandler(async(req,res)=>{
      }
      const exist  = await userMdl.findOne({email:req.body.email}) ; 
      if (exist){
-        return res.status(400).json({message : "user already exists"})
+        return res.status(400).json({message : "a user already exists with this email"}) ;
      }
      const hashedpassword = await hashPassword(value.password) ;
      const user = await userMdl.create({name : value.name ,lastname  : value.lastname , email : req.body.email ,password : hashedpassword }) ; //value contain the name after the triming in the validationutils
