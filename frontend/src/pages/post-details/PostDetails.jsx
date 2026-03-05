@@ -7,7 +7,7 @@ import swal from "sweetalert";
 import UpdatePostModal from "./UpdatePostModal";
 import { useAuthStore } from "../../stores&apicalls/authStore";
 import { usePostStore } from "../../stores&apicalls/postStore";
-
+import { Oval } from "react-loader-spinner";
 const PostDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -52,7 +52,19 @@ const PostDetails = () => {
     });
   };
   if(loadfetchingsinglepost){
-    return <div className="post-details-loading"></div>; 
+    return  <div style={{ 
+        display: 'flex', 
+        justifyContent: 'center', 
+        alignItems: 'center', 
+        height: '100vh' 
+      }}>
+        <Oval
+          height={50}
+          width={50}
+          color="blue"
+          ariaLabel="loading"
+        />
+      </div>; 
    }
   else return (
     <section className="post-details">

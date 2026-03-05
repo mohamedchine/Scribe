@@ -13,9 +13,12 @@ const PostsTable = () => {
     const deletePost = usePostStore((state) => state.deletePost);
 
     useEffect(() => {
-     getAllPosts();
-    }, [getAllPosts]);
+  const fetchPosts = async () => {
+    await getAllPosts();
+  };
 
+  fetchPosts();
+}, [getAllPosts]);
   // Delete Post Handler
   const deletePostHandler = (postId) => {
     swal({

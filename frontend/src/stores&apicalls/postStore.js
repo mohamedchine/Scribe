@@ -130,6 +130,9 @@ const usePostStore = create(
   fetchSinglePost: async (postId) => {
     try {
       set({ loadfetchingsinglepost: true });
+      if(get().post && get().post._id === postId){
+        return; // post already in state, no need to fetch
+      }
       const { data } = await api.get(`/api/posts/${postId}`);
       set({ post: data });
     } catch (error) {
@@ -231,6 +234,7 @@ const usePostStore = create(
 
   getAllPosts: async () => {
     try {
+      set({posts :[]})
       const { data } = await api.get("/api/posts/");
       set({ posts: data });
     } catch (error) {
