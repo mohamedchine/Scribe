@@ -72,7 +72,7 @@ const usePostStore = create(
       const { data } = await api.get(`/api/posts?pageNumber=${pageNumber}`);
       // store page in cache and update current posts
       set((state) => ({
-        postsCache: { ...(state.postsCache || {}), [pageNumber]: data },
+        postsCache: { ...state.postsCache , [pageNumber]: data },
         posts: data,
       }));
     } catch (error) {
@@ -159,12 +159,21 @@ const usePostStore = create(
         `/api/posts/${postId}/update-image/`,
         newImage
       );
-      if (data.post) {
+      const updated = data.post;
+      if (updated) {
         set((state) => ({
-          post: state.post ? { ...state.post, photo: data.post.photo } : null,
+          post: state.post ? { ...state.post, photo: updated.photo } : null,
         }));
       }
       // toast.success("New post image uploaded successfully");
+    // update cached pages (replace post in each cached page)
+    set((state) => {
+      const newCache = {};
+      for (const [page, items] of Object.entries(state.postsCache || {})) {
+        newCache[page] = items.map(p => (p._id === updated._id ? updated : p));
+      }
+      return { postsCache: newCache };
+    });
     } catch (error) {
       toast.error(
         error?.response?.data?.message || "Failed to update post image"
@@ -177,7 +186,17 @@ const usePostStore = create(
   updatePost: async (newPost, postId) => {
     try {
       const { data } = await api.put(`/api/posts/${postId}`, newPost);
-      set({ post: data.newpost });
+     const updated = data.newpost;
+    // update current post if it's the one being viewed
+    set({ post: data.newpost });
+    // update cached pages (replace post in each cached page)
+    set((state) => {
+      const newCache = {};
+      for (const [page, items] of Object.entries(state.postsCache || {})) {
+        newCache[page] = items.map(p => (p._id === updated._id ? updated : p));
+      }
+      return { postsCache: newCache };
+    });
     } catch (error) {
       toast.error(error?.response?.data?.message || "Failed to update post");
     }
@@ -188,7 +207,7 @@ const usePostStore = create(
       const { data } = await api.delete(`/api/posts/${postId}`);
       get().removePostFromState(data.postId);
 
-      // invalidate cache so deleted post is removed from cached pages
+      // invalidate cache so deleted post is removed from cached pages(we could also remove it from the cache but too much bottleneck)
       set({ postsCache: {} });
 
       const profile = useProfileStore.getState().profile;

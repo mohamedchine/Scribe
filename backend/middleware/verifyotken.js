@@ -37,7 +37,7 @@ const verifytokenAndownershiptOradmin = async(req,res,next)=>{
 }
 const verifytokenAndPostOwnership = async(req,res,next)=>{
         //first we verify post existince
-        const post = await postMdl.findOne({ _id : req.params.id}) ;
+        const post = await postMdl.findOne({ _id : req.params.id}).populate('author' ,["name","lastname","profilePic"]) ;
         if(!post) return res.status(400).json({message : "no post with that id sir"}) ;
       
         //second we verify user authentification
