@@ -35,7 +35,7 @@ const registerctrl = asyncHandler(async(req,res)=>{
     await sendEmail(user.email, "Verify Your Email", htmlTemplate);
      
      res.status(201).json({
-       message: "we've emailed you a link please click it to verify your account",
+       message: "we've mailed you a link please click it to verify your account",
      });
      
 })

@@ -7,7 +7,7 @@ const hpp=require('hpp');
 const cors = require('cors');
 const xss = require('xss-clean');
 const {globalLimiter} = require('./middleware/Limiter');
-
+const helmet = require('helmet');
 
 
 const reftokenRoute = require('./routes/refTokenRoute') ; 
@@ -29,6 +29,7 @@ app.use(cookieparser());
 app.use(globalLimiter);
 app.use(hpp());
 app.use(xss());
+app.use(helmet());
 
 dbconnection.on('connected', 
     () => {

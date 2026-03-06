@@ -8,7 +8,7 @@ A full-stack blog and content platform built with React and Node.js. Users can c
 
 | Layer      | Stack |
 |-----------|--------|
-| **Frontend** | React 18, React Router, Context API, Axios, Bootstrap Icons, React Toastify |
+| **Frontend** | React 18, React Router, zustand , Axios, Bootstrap Icons, React Toastify |
 | **Backend**  | Node.js, Express, Mongoose |
 | **Database** | MongoDB |
 | **Storage**  | Cloudinary (images) |
@@ -31,7 +31,7 @@ Scribe/
 └── frontend/         # React SPA
     └── src/
         ├── components/
-        ├── contexts&apicalls/
+        ├── stores&apicalls/
         ├── pages/
         └── utils/
 ```
@@ -136,7 +136,7 @@ The app is **not 100% developed**. Possible improvements:
 - **Messaging** – **Text chat** (e.g. real-time or polling) between users.
 - **UX**
   - Notifications (in-app or email) for comments, likes, new followers.
-  - Search (posts, users, categories).
+  - Search (posts, users).
   -like and reply to comments etc
 
 ---

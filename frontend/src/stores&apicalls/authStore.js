@@ -9,7 +9,7 @@ const useAuthStore = create(
     (set, get) => ({
   // states
   user: null,
-  isEmailVerified: false,
+  verifyStatus: "idle",
   loading: {
     checkAuth: true,
     login: false,
@@ -71,15 +71,16 @@ const useAuthStore = create(
   },
 
   verifyEmail: async (userId, token) => {
-    try {
-      await api.get(`/api/auth/${userId}/verify/${token}`);
-      set({ isEmailVerified: true });
-    } catch (error) {
-      toast.error(
-        error?.response?.data?.message || "Email verification failed"
-      );
-    }
-  },
+      try {
+        set({ verifyStatus: "loading" });
+
+        await api.get(`/api/auth/${userId}/verify/${token}`);
+
+        set({ verifyStatus: "success" });
+      } catch (error) {
+        set({ verifyStatus: "error" });
+      }
+    },
 
   checkAuth: async () => {
     try {
