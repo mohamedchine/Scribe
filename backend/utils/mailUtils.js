@@ -1,17 +1,22 @@
-const { Resend } = require('resend');
-const resend = new Resend(process.env.RESEND_API_KEY);
+const axios = require('axios');
 
 const sendEmail = async (userEmail, subject, htmlTemplate) => {
   try {
-    await resend.emails.send({
-      from: `Scribe Team <onboarding@resend.dev>`,
-      to: userEmail,
+    await axios.post('https://api.brevo.com/v3/smtp/email', {
+      sender: { name: 'Scribe Team', email: process.env.APP_EMAIL_ADDRESS },
+      to: [{ email: userEmail }],
       subject,
-      html: htmlTemplate,
+      htmlContent: htmlTemplate,
+    }, {
+      headers: {
+        'api-key': process.env.BREVO_API_KEY,
+        'Content-Type': 'application/json',
+      }
     });
   } catch (err) {
     console.error("couldn't send email", err);
     throw err;
   }
 };
+
 module.exports = sendEmail;
