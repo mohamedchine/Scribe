@@ -4,7 +4,7 @@ const {
   getResetPasswordLinkCtrl,
   resetPasswordCtrl,
 } = require("../controllers/passwordCtrl");
-const verifyrecaptcha = require("../middleware/verifyRecaptcha");
+const verifyrecaptcha = require("../middleware/verifyrecaptcha");
 
 
 passwordRoutes.post("/reset-password-link",verifyrecaptcha("forgot_password"), sendResetPasswordLinkCtrl);
