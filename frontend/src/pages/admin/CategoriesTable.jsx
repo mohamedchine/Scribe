@@ -12,7 +12,7 @@ const CategoriesTable = () => {
 
   useEffect(() => {
     fetchCategories();
-  }, []);
+  }, [fetchCategories]);
 
   // Delete Category Handler
   const deleteCategoryHandler = (categoryId) => {

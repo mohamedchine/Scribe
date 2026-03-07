@@ -30,7 +30,7 @@ function App() {
   const checkAuth = useAuthStore((state) => state.checkAuth);
   useEffect(()=>{
     checkAuth();
-  },[])
+  },[checkAuth])
   // wait for auth check to complete before rendering routes
   if (checkauthloading) {
     return (

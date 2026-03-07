@@ -20,7 +20,7 @@ const ResetPassword = () => {
 
   useEffect(() => {
     getResetPassword(userId, token);
-  }, []);
+  }, [getResetPassword, userId, token]);
 
   // Form Submit Handler
   const formSubmitHandler = (e) => {

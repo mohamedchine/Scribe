@@ -12,7 +12,7 @@ const CommentsTable = () => {
 
   useEffect(() => {
     fetchAllComments();
-  }, []);
+  }, [fetchAllComments]);
 
   // Delete Comment Handler
   const deleteCommentHandler = (commentId) => {
@@ -51,7 +51,7 @@ const CommentsTable = () => {
                   <div className="table-image">
                     <img
                       src={item.author?.profilePic?.url }
-                      alt=""
+                      alt={item.author?.fullname || 'User avatar'}
                       className="table-user-image"
                     />
                     <span className="table-username">

@@ -27,7 +27,7 @@ const HeaderRight = () => {
             <img
               onClick={() => setDropdown((prev) => !prev)}
               src={user?.profilePic?.url }
-              alt="user photo"
+              alt={user?.fullname || 'User avatar'}
               className="header-right-user-photo"
               style={{ cursor: "pointer" }}
             />

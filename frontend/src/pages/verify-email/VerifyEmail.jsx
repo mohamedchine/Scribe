@@ -10,9 +10,9 @@ const VerifyEmail = () => {
 
   useEffect(() => {
     verifyEmail(userId, token);
-  }, [userId, token]);
+  }, [verifyEmail, userId, token]);
 
-  if (verifyStatus == "loading") {
+  if (verifyStatus === "loading") {
     return (
       <section className="verfiy-email">
         <h1>Verifying your email...</h1>
@@ -20,7 +20,7 @@ const VerifyEmail = () => {
     );
   }
 
-  if (verifyStatus == "error") {
+  if (verifyStatus === "error") {
     return (
       <section className="verfiy-email">
         <h1 className="verify-email-not-found">
@@ -30,7 +30,7 @@ const VerifyEmail = () => {
     );
   }
 
-  if (verifyStatus == "success") {
+  if (verifyStatus === "success") {
     return (
       <section className="verfiy-email">
         <i className="bi bi-patch-check-fill verify-email-icon"></i>

@@ -1,7 +1,6 @@
 import "./add-comment.css";
 import { useState } from "react";
 import { toast } from "react-toastify";
-import { useAuthStore } from "../../stores&apicalls/authStore";
 import { useCommentStore } from "../../stores&apicalls/commentStore";
 
 const AddComment = ({ postId }) => {
