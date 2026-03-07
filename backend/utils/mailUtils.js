@@ -1,26 +1,18 @@
-const nodemailer = require("nodemailer");
+const { Resend } = require('resend');
+const resend = new Resend(process.env.RESEND_API_KEY);
 
-module.exports = async (userEmail, subject, htmlTemplate) => {
+const sendEmail = async (userEmail, subject, htmlTemplate) => {
   try {
-    const transporter = nodemailer.createTransport({
-      service: "gmail",
-      auth: {
-        user: process.env.APP_EMAIL_ADDRESS,
-        pass: process.env.APP_EMAIL_PASSWORD,
-      },
-    });
-
-    const mailOptions = {
-      from: process.env.APP_EMAIL_ADDRESS,
+    await resend.emails.send({
+      from: `Scribe Team`,
       to: userEmail,
-      subject: subject,
+      subject,
       html: htmlTemplate,
-    };
-
-    const info = await transporter.sendMail(mailOptions);
-    console.log("Email Sent: " + info.response);
-  } catch (error) {
-    console.log(error);
-    throw new Error("Internal Server Error (nodemailer)");
+    });
+  } catch (err) {
+    console.error("couldn't send email", err);
+    throw err;
   }
 };
+
+module.exports = sendEmail;
