@@ -1,7 +1,7 @@
 const {Router} = require("express") ;
 const {loginLimiter} =require('../middleware/Limiter') ;
 const {registerctrl , loginctrl, checkAuthctrl, logoutctrl,verifyEmailCtrl} = require("../controllers/authCtrl");
-const verifyrecaptcha = require("../middleware/verifyRecaptcha");
+const verifyrecaptcha = require("../middleware/verifyrecaptcha");
 
 const authRoutes = Router() ;
 
