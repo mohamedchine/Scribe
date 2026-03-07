@@ -4,8 +4,8 @@ const {registerctrl , loginctrl, checkAuthctrl, logoutctrl,verifyEmailCtrl} = re
 const verifyrecaptcha = require("../middleware/verifyrecaptcha");
 
 const authRoutes = Router() ;
-//,verifyrecaptcha("register")
-authRoutes.post('/register' , registerctrl);
+
+authRoutes.post('/register' ,verifyrecaptcha("register"), registerctrl);
 authRoutes.post ('/login' , loginLimiter,verifyrecaptcha("login"), loginctrl) ; 
 authRoutes.post('/check' , checkAuthctrl);
 authRoutes.post('/logout',logoutctrl) ;
