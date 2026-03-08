@@ -89,7 +89,7 @@ const loginctrl = asyncHandler(async(req,res)=>{
     res.cookie('accessT', accessToken, {
       httpOnly: true, 
       secure: process.env.node_env == 'production', 
-      sameSite: 'strict', 
+      sameSite: 'none', 
       maxAge: 7*24 * 60 * 1000*60
   });
   
@@ -123,7 +123,7 @@ const logoutctrl = asyncHandler((req, res) => {
   res.clearCookie('accessT', {
     httpOnly: true,
     secure: process.env.node_env === 'production',
-    sameSite: 'strict',
+    sameSite: 'none',
   });
   res.status(200).json({ message: 'Logged out ' });
 });

@@ -1,7 +1,7 @@
 const userMdl = require('../models/userModel');
 const {validateUpdateUser} = require('../utils/uservalidationUtils');
 const asyncHandler = require('express-async-handler');
-const {comparePasswords,hashPassword} = require('../utils/hashingUtils');
+const {hashPassword} = require('../utils/hashingUtils');
 const {removeImageFCloudinary,removeImagesFCloudinary} = require('../utils/cloudinary');
 const postMdl = require('../models/postModel');
 const commentMdl = require('../models/commentModel');
@@ -139,7 +139,7 @@ const deleteProfileCtrl =asyncHandler(async(req,res)=>{
           res.clearCookie('accessT', {
           httpOnly: true,
           secure: process.env.node_env === 'production',
-          sameSite: 'strict'
+          sameSite: 'none'
         });
      }
      res.status(200).json({message : "profile deleted successfully"})

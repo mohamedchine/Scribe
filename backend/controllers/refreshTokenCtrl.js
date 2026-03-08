@@ -29,7 +29,7 @@ const refreshTokenCtrl =async(req,res)=>{
            res.cookie('accessT', accessToken, {
             httpOnly: true, 
             secure: process.env.node_env == 'production', 
-            sameSite: 'strict', 
+            sameSite: 'none', 
             maxAge: 15 * 60 * 1000 // 15 minutes
         });
         res.status(200).json({message:"refresh token has been given"});
