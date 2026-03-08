@@ -13,7 +13,7 @@ A full-stack blog and content platform built with React and Node.js. Users can c
 | **Database** | MongoDB |
 | **Storage**  | Cloudinary (images) |
 | **Cache**    | Redis (rate limiting) |
-| **Auth**     | JWT (access + refresh tokens), bcrypt, nodemailer |
+| **Auth**     | JWT (access + refresh tokens), bcrypt, brevo |
 
 ---
 
@@ -46,7 +46,7 @@ Scribe/
 - MongoDB
 - Redis Account (for rate limiting)
 - Cloudinary account (for image uploads)
-- Gmail (for emails)
+- brevo account(for emails)
 - reCAPTCHA v3 keys (you can get them from here https://www.google.com/recaptcha/admin/create)
 
 ### Backend 
