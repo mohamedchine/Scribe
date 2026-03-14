@@ -2,7 +2,7 @@ import AdminSidebar from "./AdminSidebar";
 import "./admin-table.css";
 import { Link } from "react-router-dom";
 import swal from "sweetalert";
-import { useEffect } from "react";
+import { useEffect ,useState } from "react";
 import { usePostStore } from "../../stores&apicalls/postStore";
 
 
@@ -11,11 +11,11 @@ const PostsTable = () => {
     const posts = usePostStore((state) => state.posts);
     const getAllPosts = usePostStore((state) => state.getAllPosts);
     const deletePost = usePostStore((state) => state.deletePost);
-    const loading = usePostStore((state) => state.loadfetchingposts);
-
+    const [arepostfetched , setarepostfetched] = useState(false);
     useEffect(() => {
   const fetchPosts = async () => {
     await getAllPosts();
+    setarepostfetched(true);
   };
 
   fetchPosts();
@@ -79,11 +79,11 @@ const PostsTable = () => {
                                     </div>
                                 </td>
                             </tr>
-                        )) : loading === false ? (
+                        )) : arepostfetched ? (
                             <tr>
                                 <td colSpan="4" style={{ textAlign: 'center' }}>No posts found</td>
                             </tr>
-                        ) : null    }
+                        ) : null}
                     </tbody>
                 </table>
             </div>
