@@ -11,6 +11,7 @@ const PostsTable = () => {
     const posts = usePostStore((state) => state.posts);
     const getAllPosts = usePostStore((state) => state.getAllPosts);
     const deletePost = usePostStore((state) => state.deletePost);
+    const loading = usePostStore((state) => state.loadfetchingposts);
 
     useEffect(() => {
   const fetchPosts = async () => {
@@ -78,11 +79,11 @@ const PostsTable = () => {
                                     </div>
                                 </td>
                             </tr>
-                        )) : (
+                        )) : loading === false ? (
                             <tr>
                                 <td colSpan="4" style={{ textAlign: 'center' }}>No posts found</td>
                             </tr>
-                        )}
+                        ) : null    }
                     </tbody>
                 </table>
             </div>
