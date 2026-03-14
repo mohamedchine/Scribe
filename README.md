@@ -144,3 +144,5 @@ The app is **not 100% developed**. Possible improvements:
 ## License
 
 This project is open source. Anyone can use, modify, and distribute it freely
+
+> 🎬 **[Watch Admin Section Demo →](https://www.youtube.com/watch?v=lZjCq8bCy1M)**
